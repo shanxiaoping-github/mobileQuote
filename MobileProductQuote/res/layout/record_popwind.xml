@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/title_function_bg"
+    android:orientation="vertical"
+    android:paddingBottom="10dip"
+    android:paddingTop="20dip" >
+
+    <TextView
+        android:id="@+id/record_popwind_qute_price"
+        style="@style/one_level_font"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:paddingTop="10dip"
+        android:text="报价记录"
+        android:textColor="@drawable/text_button_backgroup" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_marginTop="5dip"
+        android:background="@color/diverGray" />
+
+    <TextView
+        android:id="@+id/record_popwind_enquiry_price"
+        style="@style/one_level_font"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:paddingBottom="10dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:paddingTop="10dip"
+        android:text="询价记录"
+        android:textColor="@drawable/text_button_backgroup" />
+
+</LinearLayout>

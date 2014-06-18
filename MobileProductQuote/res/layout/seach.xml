@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/seach_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dip"
+            android:hint="项目名称或编号"
+            android:singleLine="true"
+            android:textColor="@color/shallowGray"
+            android:textColorHint="@color/hintColor" />
+
+        <ImageButton
+            android:id="@+id/seach_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignRight="@id/seach_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="@color/emptyColor"
+            android:src="@drawable/seach_icon" />
+    </RelativeLayout>
+
+</LinearLayout>

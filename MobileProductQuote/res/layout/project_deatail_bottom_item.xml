@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="5dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:paddingTop="5dip" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/project_deatail_current_price_total"
+            style="@style/big_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="当前总价:30元"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/project_deatail_last_price_total"
+            style="@style/three_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="上一轮总价:30元"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/project_deatail_rate"
+            style="@style/three_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="基础税率:17%"
+            android:textColor="@color/shallowGray" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom" >
+
+        <TextView
+            android:id="@+id/project_deatail_current_quotenumber"
+            style="@style/one_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="第2轮"
+            android:textColor="@color/shallowGray" />
+
+        <TextView
+            android:id="@+id/project_deatail_quote"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/project_deatail_current_quotenumber"
+            android:layout_marginTop="5dip"
+            android:background="@drawable/blue_gray_select"
+            android:gravity="center"
+            android:padding="10dip"
+            android:text="报价"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/project_deatail_refused"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/project_deatail_quote"
+            android:layout_marginRight="3dip"
+            android:layout_toLeftOf="@id/project_deatail_quote"
+            android:background="@drawable/blue_gray_select"
+            android:gravity="center"
+            android:padding="10dip"
+            android:text="拒绝"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/apk/res/com.example.mobileproductquote"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/press_background"
+    android:clickable="true"
+    android:descendantFocusability="blocksDescendants"
+    android:minHeight="50dip" >
+
+    <LinearLayout
+        android:id="@+id/product_item_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/slectColor"
+        android:orientation="horizontal"
+        android:paddingBottom="5dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="5dip" >
+
+        <TextView
+            android:id="@+id/product_item_name"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="房屋采购"
+            android:textColor="@color/white" />
+
+        <View
+            android:layout_width="0dip"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/product_item_unit"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单位:斤"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/product_item_top"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/product_item_serialNumber"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="产品编号:123456"
+            android:textColor="@color/shallowGray" />
+
+        <TextView
+            android:id="@+id/product_item_current_price"
+            style="@style/two_level_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:background="@drawable/press_background"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="当前报价:10元"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/product_item_product_total"
+            style="@style/two_level_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="产品小计:1000元"
+            android:textColor="@color/shallowGray" />
+
+        <TextView
+            android:id="@+id/product_item_last_price"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dip"
+            android:layout_marginTop="2dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="上轮报价:80元"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/product_item_last_total"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dip"
+            android:layout_marginTop="2dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="上轮报价:80元"
+            android:textColor="@color/shallowGray" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/product_item_rate"
+        style="@style/one_level_font"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dip"
+        android:paddingTop="30dip"
+        android:text="含税17%" />
+
+</RelativeLayout>
