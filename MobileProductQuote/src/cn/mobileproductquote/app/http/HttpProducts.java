@@ -27,7 +27,7 @@ public class HttpProducts extends BaseAsynHttpClient {
 			status = jo.getInt("status");
 			if (status == HttpConstants.SUCCESS) {
 				productsInfo = jo.getString("productsInfo");
-				if (!(productsInfo.equals("0") || productsInfo.equals("1"))) {
+				if (!(productsInfo.equals("0") || productsInfo.equals("1"))){
 					list = Product.getArray(productsInfo);
 				}
 

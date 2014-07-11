@@ -6,7 +6,7 @@
     <string name="hello_world">Hello world!</string>
     
     
-    <string name="loading_prompt0">正在努力加载中...</string>
+    <string name="loading_prompt0">努力加载中...</string>
     <string name="loading_prompt1">加载超时</string>
 
 </resources>

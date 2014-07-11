@@ -138,7 +138,7 @@ public class HttpMethod {
 
 	/**
 	 * 获得项目产品详情
-	 * 
+	 * @param userId
 	 * @param serialNumber
 	 *            项目编号
 	 * @param currenTurn
@@ -148,14 +148,29 @@ public class HttpMethod {
 	 * @param listener
 	 *            监听器
 	 */
-	public void getProjectProducts(String serialNumber, int currenTurn,
+	public void getProjectProducts(int userId,String serialNumber, int currenTurn,
 			int type, AsynHcResponseListener listener) {
 		HttpProducts ob = new HttpProducts();
-		ob.setPramas(new String[] { "serialNumber", "currenTurn", "type" },
-				new Object[] { serialNumber, currenTurn, type });
+		ob.setPramas(new String[] { "userId","serialNumber", "currenTurn", "type" },
+				new Object[] { userId,serialNumber, currenTurn, type });
 		ob.addAsynHcResponseListenrt(listener);
-		ob.getUrl(HttpAddress.PROJECT_DEATAIL);
+		switch (type) {
+		case HttpConstants.COMPARISON://询比价
+			ob.getUrl(HttpAddress.COMPARISON_PROJECT_DEATAIL);
+			break;
+
+		case HttpConstants.BIDDING://招投标
+			ob.getUrl(HttpAddress.BIDDING_PROJECT_DEATAIL);
+			break;
+		default://截止
+			break;
+		
+		}
+		
 	}
+	
+	
+	
 
 	/**
 	 * 项目报价

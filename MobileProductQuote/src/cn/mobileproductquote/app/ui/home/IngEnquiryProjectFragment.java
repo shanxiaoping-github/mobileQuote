@@ -63,24 +63,7 @@ public class IngEnquiryProjectFragment extends BaseFragment implements
 	}
 
 	
-	/**
-	 * 获得项目
-	 */
-	private String[] name =new String[]{
-			"钢材询比价采购",
-			"生产原料询比价采购",
-			"工程询比价采购",
-	};
-	private String code[]=new String[]{
-			"0004",
-			"0005",
-			"0006"
-	};
-	private String time[]=new String[]{
-			"2014-6-19",
-			"2014-6-17",
-			"2014-6-18"
-	};
+	
 	/**
 	 * 获得项目
 	 */

@@ -19,9 +19,15 @@ import cn.mobileproductquote.app.R;
 import cn.mobileproductquote.app.adapter.ProductAdapter;
 import cn.mobileproductquote.app.data.Product;
 import cn.mobileproductquote.app.data.Project;
+import cn.mobileproductquote.app.http.BaseAsynHttpClient;
+import cn.mobileproductquote.app.http.BaseAsynHttpClient.AsynHcResponseListener;
+import cn.mobileproductquote.app.http.HttpMethod;
+import cn.mobileproductquote.app.http.HttpProducts;
 import cn.mobileproductquote.app.intrface.AdapterItemListener;
 import cn.mobileproductquote.app.intrface.BaseListener;
+import cn.mobileproductquote.app.main.MyApplication;
 import cn.mobileproductquote.app.ui.base.BaseActivity;
+import cn.mobileproductquote.app.util.HttpConstants;
 import cn.mobileproductquote.app.util.MathUtil;
 import cn.mobileproductquote.app.util.ShowUtil;
 
@@ -47,6 +53,8 @@ public class ProjectDeatailActivity extends BaseActivity implements
 	private LinearLayout bottomGroup;// 底部容器
 	private TextView type;
 	private ImageButton more;
+	private ImageButton error;//错误
+	private TextView empty;//空
 
 	@Override
 	protected void layout() {
@@ -57,6 +65,9 @@ public class ProjectDeatailActivity extends BaseActivity implements
 		type = (TextView) findViewById(R.id.project_deatail_type);
 		more = (ImageButton) findViewById(R.id.project_deatail_more);
 		more.setOnClickListener(this);
+		error = (ImageButton)findViewById(R.id.project_deatail_error);
+		error.setOnClickListener(this);
+		empty=(TextView)findViewById(R.id.project_deatail_empty);
 		switch (state) {
 		case 0:
 			type.setText("投");
@@ -177,17 +188,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 		}
 	}
 
-	/**
-	 * 获得产品列表
-	 */
-	String[] str = new String[]{
-			"钢材",
-			"氰化钠",
-			"活性炭 ",
-			"石灰",
-			"宏基笔记本"
-			
-	};
+	
 	 
 	 
 	
@@ -195,21 +196,40 @@ public class ProjectDeatailActivity extends BaseActivity implements
 	
 
 	private void getProducts() {
-		for (int i = 0; i < 5; i++) {
-			Product product = new Product();
-			product.setName(str[i]);
-			product.setUnit("斤");
-			product.setRate(17);
-			product.setNumber(108);
+		error.setVisibility(View.GONE);
+		empty.setVisibility(View.GONE);
+		AsynHcResponseListener listener = new AsynHcResponseListener() {
 			
-			product.setSerialNumber("10007B2C3D");
-			product.setLastPrice(0);
-			product.setCurrentPrice(product.getLastPrice());
-
-			list.add(product);
-
-		}
-		productAdapter.notifyDataSetChanged();
+			@Override
+			public boolean onTimeout() {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+				error.setVisibility(View.VISIBLE);
+				return false;
+			}
+			
+			@Override
+			public boolean onSuccess(BaseAsynHttpClient asynHttpClient) {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+				HttpProducts ob = (HttpProducts)asynHttpClient;
+				if(ob.getStatus()==HttpConstants.SUCCESS){
+					list.addAll(ob.getList());
+					productAdapter.notifyDataSetChanged();
+				}
+				return false;
+			}
+			
+			@Override
+			public boolean onEmpty() {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+				empty.setVisibility(View.VISIBLE);
+				return false;
+			}
+		};
+		ShowUtil.openHttpDialog(getResources().getString(R.string.loading_prompt0));
+		HttpMethod.getInstance().getProjectProducts(MyApplication.getInstance().getUser().getId(),project.getSerialNumber(), project.getCurrentNumber(),state==0?HttpConstants.BIDDING:(state==2?HttpConstants.COMPARISON:-100), listener);
 	}
 
 	@Override
@@ -357,9 +377,16 @@ public class ProjectDeatailActivity extends BaseActivity implements
 		case R.id.project_deatail_modification:// 修改询价并向对方询价
 			modificationPrice();
 			break;
+		case R.id.project_deatail_error://连接错误
+			getProducts();
+			break;
 
 		}
 	}
+	
+	
+	
+	
 
 	/**
 	 * 更多轮次

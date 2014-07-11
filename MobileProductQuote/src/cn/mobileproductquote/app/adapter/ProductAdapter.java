@@ -89,7 +89,7 @@ public class ProductAdapter extends BaseAdapter<Product> {
 		}
 		holder.productCurrentPrice.setText((state == 0 ? "当前投标单价:" : "当前询标单价:")
 				+ MathUtil.getAmoutExpress(product.getCurrentPrice()) + "元");// 当前报价
-		float total = product.getCurrentPrice() * product.getNumber();
+		double total = product.getCurrentPrice() * product.getNumber();
 		holder.productCurrentTotal.setText((state == 0 ? "当前投标小计:" : "当前询标小计:")
 				+ MathUtil.getAmoutExpress(total) + "元");
 

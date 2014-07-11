@@ -39,14 +39,14 @@ public class ChangeProductAdapter extends BaseAdapter<Product> {
 
 		holder.name.setText("产品名称:" + product.getName());
 		holder.number.setText(product.getNumber() + product.getUnit());
-		float ctotal = product.getCurrentPrice() * product.getNumber();
+		double ctotal = product.getCurrentPrice() * product.getNumber();
 		String ctotalStr = ctotal == 0 ? "暂无小计" : MathUtil
 				.getAmoutExpress(ctotal) + "元";
 		holder.currentTotal.setText("当前小计:" + ctotalStr);
 		holder.currentPrice.setText(
 				 product.getCurrentPrice() == 0 ? "暂无报价" : "("+MathUtil
 						.getAmoutExpress(product.getCurrentPrice()) + "元/"+product.getUnit()+")");
-		float ltotal = product.getLastPrice() * product.getNumber();
+		double ltotal = product.getLastPrice() * product.getNumber();
 		String ltotalStr = ltotal == 0 ? "暂无小计" : MathUtil
 				.getAmoutExpress(ltotal) + "元";
 

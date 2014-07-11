@@ -36,8 +36,8 @@ public class MathUtil {
 	 * @param numberStr 金额数
 	 * @return 金额处理后的表达式
 	 */
-	public static String getAmoutExpress(float number){
-		float resultNumber = number;
+	public static String getAmoutExpress(double number){
+		double resultNumber = number;
 		String suffix="";
 		
 		try{

@@ -12,15 +12,15 @@ import org.json.JSONObject;
  * @author Administrator
  * 
  */
-public class Product implements BaseData {
+public class Product implements BaseData{
 
 	private String serialNumber = "";// 产品编码
 	private String name = "";// 产品名称
-	private float number = 0;// 数量
+	private double number = 0;// 数量
 	private String unit = "";// 斤
-	private float lastPrice = 0;// 上轮价格
-	private float currentPrice = 0;// 当前价格
-	private float rate = 0;// 税率
+	private double lastPrice = 0;// 上轮价格
+	private double currentPrice = 0;// 当前价格
+	private double rate = 0;// 税率
 	private String describe = "无";
 
 	public String getDescribe() {
@@ -47,11 +47,11 @@ public class Product implements BaseData {
 		this.name = name;
 	}
 
-	public float getNumber() {
+	public double getNumber() {
 		return number;
 	}
 
-	public void setNumber(float number) {
+	public void setNumber(double number) {
 		this.number = number;
 	}
 
@@ -63,33 +63,48 @@ public class Product implements BaseData {
 		this.unit = unit;
 	}
 
-	public float getLastPrice() {
+	public double getLastPrice() {
 		return lastPrice;
 	}
 
-	public void setLastPrice(float lastPrice) {
+	public void setLastPrice(double lastPrice) {
 		this.lastPrice = lastPrice;
 	}
 
-	public float getCurrentPrice() {
+	public double getCurrentPrice() {
 		return currentPrice;
 	}
 
-	public void setCurrentPrice(float currentPrice) {
+	public void setCurrentPrice(double currentPrice) {
 		this.currentPrice = currentPrice;
 	}
 
-	public float getRate() {
+	public double getRate() {
 		return rate;
 	}
 
-	public void setRate(float rate) {
+	public void setRate(double rate) {
 		this.rate = rate;
 	}
 
 	@Override
 	public void parser(JSONObject jo) {
 		// TODO Auto-generated method stub
+		try {
+			serialNumber = jo.getString("serialNumber");
+			name = jo.getString("name");
+			number = jo.getDouble("number");
+			unit = jo.getString("unit");
+
+			lastPrice = jo.getDouble("lastPrice");
+			
+			rate = jo.getDouble("rate");
+
+			describe = jo.getString("describe");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -125,21 +140,24 @@ public class Product implements BaseData {
 		}
 		return list;
 	}
+
 	/**
 	 * 获得报价产品
+	 * 
 	 * @return
 	 */
-    public QuoteProduct getQuoteProduct(){
-    	QuoteProduct quoteProduct=new QuoteProduct();
-    	quoteProduct.setSerialNumber(serialNumber);
-    	quoteProduct.setPrice(currentPrice);
-    	quoteProduct.setRate(rate);
-    	return quoteProduct;
-    }
+	public QuoteProduct getQuoteProduct() {
+		QuoteProduct quoteProduct = new QuoteProduct();
+		quoteProduct.setSerialNumber(serialNumber);
+		quoteProduct.setPrice(currentPrice);
+		quoteProduct.setRate(rate);
+		return quoteProduct;
+	}
+
 	public class QuoteProduct implements BaseData {
 		private String serialNumber = "";// 产品编码
-		private float price;// 当前单价
-		private float rate;// 产品税率
+		private double price;// 当前单价
+		private double rate;// 产品税率
 
 		public String getSerialNumber() {
 			return serialNumber;
@@ -149,19 +167,19 @@ public class Product implements BaseData {
 			this.serialNumber = serialNumber;
 		}
 
-		public float getPrice() {
+		public double getPrice() {
 			return price;
 		}
 
-		public void setPrice(float price) {
+		public void setPrice(double price) {
 			this.price = price;
 		}
 
-		public float getRate() {
+		public double getRate() {
 			return rate;
 		}
 
-		public void setRate(float rate) {
+		public void setRate(double rate) {
 			this.rate = rate;
 		}
 
@@ -176,7 +194,7 @@ public class Product implements BaseData {
 			// TODO Auto-generated method stub
 			JSONObject jo = new JSONObject();
 			try {
-				jo.put("serialNumber",serialNumber);
+				jo.put("serialNumber", serialNumber);
 				jo.put("price", price);
 				jo.put("rate", rate);
 			} catch (JSONException e) {
