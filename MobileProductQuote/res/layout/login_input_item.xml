@@ -4,29 +4,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/login_input_item_username"
-        style="@style/one_level_font"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="用户名"
-        android:maxLength="20"
-        android:singleLine="true"
-        android:textColor="@color/shallowGray"
-        android:textColorHint="@color/hintColor" />
+        android:background="@drawable/box_backgroup"
+        android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/login_input_item_userpwd"
-        style="@style/one_level_font"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:hint="密码  6-20位"
-        android:maxLength="20"
-        android:password="true"
-        android:singleLine="true"
-        android:textColor="@color/shallowGray"
-        android:textColorHint="@color/hintColor" />
+        <EditText
+            android:id="@+id/login_input_item_username"
+            style="@style/one_level_font"
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:background="@color/emptyColor"
+            android:hint="用户名"
+            android:maxLength="20"
+            android:padding="10dip"
+            android:singleLine="true"
+            android:textColor="@color/shallowGray"
+            android:textColorHint="@color/hintColor" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/hintColor" />
+
+        <EditText
+            android:id="@+id/login_input_item_userpwd"
+            style="@style/one_level_font"
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+           
+            android:background="@color/emptyColor"
+            android:hint="密码 "
+            android:maxLength="20"
+            android:padding="10dip"
+            android:password="true"
+            android:singleLine="true"
+            android:textColor="@color/shallowGray"
+            android:textColorHint="@color/hintColor" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/login_input_item_into"

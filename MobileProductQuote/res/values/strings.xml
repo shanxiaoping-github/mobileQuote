@@ -8,5 +8,6 @@
     
     <string name="loading_prompt0">努力加载中...</string>
     <string name="loading_prompt1">加载超时</string>
+     <string name="loading_prompt2">操作中...</string>
 
 </resources>

@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="当前总价:30元"
+            android:text="当前总价:0元"
             android:textColor="@color/red" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="上一轮总价:30元"
+            android:text="上一轮总价:0元"
             android:textColor="@color/blue" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="基础税率:17%"
+            android:text="基础税率:0%"
             android:textColor="@color/shallowGray" />
     </LinearLayout>
 
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:text="第2轮"
+            android:text="第0轮"
             android:textColor="@color/shallowGray" />
 
         <TextView

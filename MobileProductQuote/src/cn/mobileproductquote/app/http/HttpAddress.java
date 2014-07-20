@@ -24,7 +24,8 @@ public class HttpAddress {
 	public static final String USERINFOMATION="";//用户详情
 	
 	public static final String PROJECT_QUOTE="";//项目报价
-	public static final String PROJECT_COMPARISON="comparisonQuote.action?action=comparisonQuote";//项目询价操作
+	public static final String PROJECT_COMPARISON_QUOTE="comparisonQuote.action?action=comparisonQuote";//询比价报价
+	public static final String PROJECT_COMPARISON_OPERATE="projectComparisonOperate.action?action=projectComparisonOperate";//询比价操作
 	public static final String BIDDING_PROJECT_DEATAIL="";//招投标项目详情
 	public static final String COMPARISON_PROJECT_DEATAIL="getComparisonProduct.action?action=getComparisonProduct";//询比价项目详情
 	public static final String END_PROJECT_DEATAIL="getComparisonProduct.action?action=getComparisonProduct";//结束项目详情

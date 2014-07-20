@@ -4,10 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/press_background"
     android:orientation="vertical"
-    android:paddingLeft="10dip"
-    android:paddingRight="10dip"
-    android:paddingTop="5dip"
-    android:paddingBottom="5dip"
+
     android:descendantFocusability="blocksDescendants"
     android:clickable="true"
      >
@@ -17,13 +14,13 @@
         style="@style/two_level_font"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/slectColor"
-        android:paddingBottom="5dip"
+        android:background="@color/hintColor"
+        android:paddingBottom="15dip"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
-        android:paddingTop="5dip"
+        android:paddingTop="15dip"
         android:text="房屋采购"
-        android:textColor="@color/white" />
+        android:textColor="@color/shallowGray" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +29,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:layout_marginTop="2dip"
+            android:layout_marginTop="10dip"
             android:id="@+id/project_item_end_time"
             style="@style/two_level_font"
             android:layout_width="wrap_content"
@@ -43,7 +40,7 @@
             android:textColor="@color/red" />
 
         <TextView
-            android:layout_marginTop="2dip"
+            android:layout_marginTop="10dip"
             android:id="@+id/project_item_serialNumber"
             style="@style/two_level_font"
             android:layout_width="wrap_content"
@@ -54,8 +51,8 @@
             android:textColor="@color/shallowGray" />
 
         <TextView
-            android:layout_marginBottom="2dip"
-            android:layout_marginTop="2dip"
+            android:layout_marginBottom="10dip"
+            android:layout_marginTop="10dip"
             android:id="@+id/project_item_moneytype"
             style="@style/two_level_font"
             android:layout_width="wrap_content"

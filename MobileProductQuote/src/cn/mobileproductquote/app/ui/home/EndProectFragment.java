@@ -78,6 +78,7 @@ public class EndProectFragment extends BaseFragment implements AdapterItemListen
 		Bundle bundle = new Bundle();
 		bundle.putInt("state",1);
 		bundle.putSerializable("project", project);
+		ProjectDeatailActivity.ctProject=project;
 		((BaseActivity) getContext()).openActivity(
 				ProjectDeatailActivity.class, bundle);
 		return false;

@@ -115,6 +115,7 @@ public class IngEnquiryProjectFragment extends BaseFragment implements
 		Bundle bundle = new Bundle();
 		bundle.putInt("state", 2);
 		bundle.putSerializable("project", project);
+		ProjectDeatailActivity.ctProject=project;
 		((BaseActivity) getContext()).openActivity(
 				ProjectDeatailActivity.class, bundle);
 		return false;

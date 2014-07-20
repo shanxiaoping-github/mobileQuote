@@ -20,7 +20,7 @@ public class BaseUser implements BaseData {
 		try {
 			id = jo.getInt("id");
 			userName = jo.getString("userName");
-			realname = jo.getString("realname");
+			realname = jo.getString("realName");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import cn.mobileproductquote.app.data.Product.QuoteProduct;
 import cn.mobileproductquote.app.http.BaseAsynHttpClient.AsynHcResponseListener;
+import cn.mobileproductquote.app.main.MyApplication;
 import cn.mobileproductquote.app.util.HttpConstants;
 
 /**
@@ -218,47 +219,15 @@ public class HttpMethod {
 		String productQuoteInfo = ja.toString();
 		projectQuote(HttpConstants.AGREE,productQuoteInfo,serialNumber,type,listener);
 	}
+	
 	/**
-	 * 项目询价操作
-	 * @param operateCode 操作码
+	 * 询比价项目报价
+	 * @param currenTurn 当前轮次
 	 * @param serialNumber 项目编号
-	 * @param type 项目类型
-	 * @param productQuoteInfo 产品询价详情
-	 */
-	private void projectComparisonOperate(int operateCode,String serialNumber,int type
-			,String productQuoteInfo,AsynHcResponseListener listener){
-		HttpComparisonOprate ob = new HttpComparisonOprate();
-		ob.setPramas(new String[]{
-				"operateCode",
-				"serialNumber",
-				"type",
-				"productQuoteInfo"
-		}, new Object[]{
-				operateCode,
-				serialNumber,
-				type,
-				productQuoteInfo
-		});
-		ob.addAsynHcResponseListenrt(listener);
-		ob.getUrl(HttpAddress.PROJECT_COMPARISON);
-	}
-	/**
-	 * 询价操作 同意或拒绝
-	 * @param serialNumber 项目编号
-	 * @param type 项目类型
+	 * @param list 修改列表
 	 * @param listener 监听器
 	 */
-	public void projectComparisonOperate(int operateCode,String serialNumber,int type,AsynHcResponseListener listener){
-		projectComparisonOperate(operateCode, serialNumber, type, "", listener);
-	}
-	/**
-	 * 询价操作 价格修改反向询价
-	 * @param serialNumber 项目编号
-	 * @param type 项目类型
-	 * @param list 产品询价详情
-	 * @param listener 监听器
-	 */
-	public void projectComparisonOperate(String serialNumber,int type,ArrayList<QuoteProduct> list,AsynHcResponseListener listener){
+	public void projectComparisonQuote(int currenTurn,String serialNumber,ArrayList<QuoteProduct> list,AsynHcResponseListener listener){
 		if(list==null||list.size()==0){
 			return;
 		}
@@ -270,7 +239,96 @@ public class HttpMethod {
 			
 		}
 		String productQuoteInfo = ja.toString();
-		projectComparisonOperate(HttpConstants.CHANGE,serialNumber,type,productQuoteInfo,listener);
+		projectComparisonQuote(MyApplication.getInstance().getUser().getId(),serialNumber,currenTurn,HttpConstants.AGREE,productQuoteInfo,listener);
+	}
+	
+	/**
+	 * 询比价项目报价
+	 * @param userId 
+	 * @param serialNumber
+	 * @param currenTurn
+	 * @param operateCode
+	 * @param productQuoteInfo
+	 */
+	public void projectComparisonQuote(int userId,String serialNumber,int currenTurn,int operateCode,String productQuoteInfo,AsynHcResponseListener listener){
+		HttpComparisonQuote ob = new HttpComparisonQuote();
+		
+		ob.setPramas(new String[]{
+				"userId",
+				"operateCode",
+				"serialNumber",
+				"currenTurn",
+				"productQuoteInfo"
+				
+		}, new Object[]{
+				userId,
+				operateCode,
+				serialNumber,
+				currenTurn,
+				productQuoteInfo
+		});
+		ob.addAsynHcResponseListenrt(listener);
+		ob.getUrl(HttpAddress.PROJECT_COMPARISON_QUOTE);
+	}
+	
+	
+	/**
+	 * 项目询价操作
+	 * @param operateCode 操作码
+	 * @param serialNumber 项目编号
+	 * @param type 项目类型
+	 * @param productQuoteInfo 产品询价详情
+	 */
+	private void projectComparisonOperate(int userId,int currenTurn,int operateCode,String serialNumber
+			,String productQuoteInfo,AsynHcResponseListener listener){
+		HttpComparisonOprate ob = new HttpComparisonOprate();
+		ob.setPramas(new String[]{
+				"userId",
+				"operateCode",
+				"serialNumber",
+				"currenTurn",
+				"productQuoteInfo"
+				
+		}, new Object[]{
+				userId,
+				operateCode,
+				serialNumber,
+				currenTurn,
+				productQuoteInfo
+		});
+	
+		ob.addAsynHcResponseListenrt(listener);
+		ob.getUrl(HttpAddress.PROJECT_COMPARISON_OPERATE);
+	}
+	/**
+	 * 询价操作 同意或拒绝
+	 * @param serialNumber 项目编号
+	 * @param type 项目类型
+	 * @param listener 监听器
+	 */
+	public void projectComparisonOperate(int userId,int currenTurn,int operateCode,String serialNumber,AsynHcResponseListener listener){
+		projectComparisonOperate(userId,currenTurn,operateCode, serialNumber, "", listener);
+	}
+	/**
+	 * 询价操作 价格修改反向询价
+	 * @param serialNumber 项目编号
+	 * @param type 项目类型
+	 * @param list 产品询价详情
+	 * @param listener 监听器
+	 */
+	public void projectComparisonOperate(int userId,int currenTurn,String serialNumber,ArrayList<QuoteProduct> list,AsynHcResponseListener listener){
+		if(list==null||list.size()==0){
+			return;
+		}
+		JSONArray ja = new JSONArray();
+		for(int i=0;i<list.size();i++){
+			QuoteProduct quoteProduct = list.get(i);
+			JSONObject jo = quoteProduct.page();
+			ja.put(jo);
+			
+		}
+		String productQuoteInfo = ja.toString();
+		projectComparisonOperate(userId,currenTurn,HttpConstants.CHANGE,serialNumber,productQuoteInfo,listener);
 	}
 
 }

@@ -9,6 +9,7 @@ import android.widget.ListView;
 import cn.mobileproductquote.app.R;
 import cn.mobileproductquote.app.adapter.ProjectAdapter;
 import cn.mobileproductquote.app.data.Project;
+import cn.mobileproductquote.app.http.HttpMethod;
 import cn.mobileproductquote.app.intrface.AdapterItemListener;
 import cn.mobileproductquote.app.ui.base.BaseActivity;
 import cn.mobileproductquote.app.ui.base.BaseFragment;
@@ -78,6 +79,7 @@ public class IngProjectFragment extends BaseFragment implements
 //			list.add(project);
 //		}
 //		projectAdapter.notifyDataSetChanged();
+		
 
 	}
 
@@ -88,6 +90,7 @@ public class IngProjectFragment extends BaseFragment implements
 		Bundle bundle = new Bundle();
 		bundle.putInt("state",0);
 		bundle.putSerializable("project", project);
+		ProjectDeatailActivity.ctProject=project;
 		((BaseActivity) getContext()).openActivity(
 				ProjectDeatailActivity.class, bundle);
 		return false;

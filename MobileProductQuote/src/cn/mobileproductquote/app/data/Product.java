@@ -113,7 +113,10 @@ public class Product implements BaseData{
 	 * 
 	 * @return
 	 */
-	public boolean isChange() {
+	public boolean isChange(int currentQuoteNumber) {
+		if(currentQuoteNumber==1){
+			return true;
+		}
 		return currentPrice - lastPrice != 0;
 	}
 

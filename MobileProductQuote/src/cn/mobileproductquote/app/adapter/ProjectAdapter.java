@@ -7,6 +7,7 @@ import android.widget.TextView;
 import cn.mobileproductquote.app.R;
 import cn.mobileproductquote.app.data.Project;
 import cn.mobileproductquote.app.util.ShowUtil;
+import cn.mobileproductquote.app.util.Time;
 /**
  * 项目适配器
  * @author Administrator
@@ -31,7 +32,8 @@ public class ProjectAdapter extends BaseAdapter<Project>{
 			holder=(Holder)arg1.getTag();
 		}
 		holder.proName.setText(project.getName());
-		holder.endTime.setText("截止时间:"+project.getEndTime());
+		boolean abort = Time.getInstance().dataIsAbort(project.getEndTime(), Time.DATE_PATTERN_6);
+		holder.endTime.setText("截止时间:"+project.getEndTime()+(abort?" 已截止":""));
 		holder.serialNumber.setText("项目编号:"+project.getSerialNumber());
 		holder.moneyType.setText("币种:"+project.getMoneyType());
 		arg1.setOnClickListener(new OnClickListener() {

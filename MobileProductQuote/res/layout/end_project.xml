@@ -12,7 +12,7 @@
         android:listSelector="@color/emptyColor"
         android:cacheColorHint="@color/emptyColor"
         android:divider="@color/emptyColor"
-        android:dividerHeight="10dip" >
+         >
     </ListView>
 
 </LinearLayout>

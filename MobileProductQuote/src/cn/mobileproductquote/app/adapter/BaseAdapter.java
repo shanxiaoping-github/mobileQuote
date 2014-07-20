@@ -97,6 +97,7 @@ public abstract class BaseAdapter<T extends BaseData> extends android.widget.Bas
 	 */
 	public int dataSize(){
 		return list.size();
+		
 	}
 
 }

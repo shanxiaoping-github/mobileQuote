@@ -20,6 +20,7 @@ public class Project implements BaseData {
 	private String name = "";// 项目名称
 	private String endTime = "";// 截止时间
 	private String moneyType = "";// 币种
+
 	public String getMoneyType() {
 		return moneyType;
 	}
@@ -70,8 +71,6 @@ public class Project implements BaseData {
 		this.name = name;
 	}
 
-	
-
 	public String getEndTime() {
 		return endTime;
 	}
@@ -93,18 +92,17 @@ public class Project implements BaseData {
 		// TODO Auto-generated method stub
 		try {
 			type = jo.getInt("type");
-			isCurrentQuote=jo.getBoolean("isCurrentQuote");
-			currentNumber=jo.getInt("currentNumber");
-			serialNumber=jo.getString("serialNumber");
-			name=jo.getString("name");
-			endTime=jo.getString("endTime");
-			moneyType=jo.getString("moneyType");
-			rate=jo.getInt("rate");
+			isCurrentQuote = jo.getBoolean("isCurrentQuote");
+			currentNumber = jo.getInt("currentNumber");
+			serialNumber = jo.getString("serialNumber");
+			name = jo.getString("name");
+			endTime = jo.getString("endTime");
+			moneyType = jo.getString("moneyType");
+			rate = jo.getInt("rate");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
 

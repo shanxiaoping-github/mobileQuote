@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import cn.mobileproductquote.app.R;
 import cn.mobileproductquote.app.data.Product;
+import cn.mobileproductquote.app.data.Project;
 import cn.mobileproductquote.app.util.MathUtil;
 import cn.mobileproductquote.app.util.ShowUtil;
 
@@ -16,6 +17,12 @@ import cn.mobileproductquote.app.util.ShowUtil;
  * 
  */
 public class ProductAdapter extends BaseAdapter<Product> {
+	public ProductAdapter(Project project,int state){
+		setProject(project);
+		setState(state);
+	}
+	private Project project;//所在的项目
+	
 	private int state = 0;// 0报价，1截止查看，2询价
 
 	public int getState() {
@@ -24,6 +31,14 @@ public class ProductAdapter extends BaseAdapter<Product> {
 
 	public void setState(int state) {
 		this.state = state;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 	@Override
@@ -65,7 +80,7 @@ public class ProductAdapter extends BaseAdapter<Product> {
 						+ product.getUnit());// 产品单位
 		holder.productSerialNumber.setText("产品编号:" + product.getSerialNumber());// 产品编码
 
-		if (state == 1) {
+		if (state == 1||project.getCurrentNumber()==1) {//如果是截止或第一次报价
 
 			// holder.productCurrentTotal.setVisibility(View.GONE);
 			holder.productLastPrice.setVisibility(View.GONE);
@@ -84,7 +99,7 @@ public class ProductAdapter extends BaseAdapter<Product> {
 			holder.productLastPrice
 					.setText((state == 0 ? "上轮投标单价:" : "上轮询标单价:")
 							+ MathUtil.getAmoutExpress(product
-									.getCurrentPrice()) + "元");// 上轮报价
+									.getLastPrice()) + "元");// 上轮报价
 
 		}
 		holder.productCurrentPrice.setText((state == 0 ? "当前投标单价:" : "当前询标单价:")
