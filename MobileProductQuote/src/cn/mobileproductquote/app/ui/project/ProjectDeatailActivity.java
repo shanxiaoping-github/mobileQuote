@@ -43,7 +43,7 @@ import cn.mobileproductquote.app.util.Time;
  */
 public class ProjectDeatailActivity extends BaseActivity implements
 		AdapterItemListener, OnClickListener {
-	public static Project ctProject=null;//当前项目
+	public static Project ctProject = null;// 当前项目
 	private int state = 0;// 0可报价，1已截止,2询价
 	private Project project;// 项目对象
 	private ListView listView;// 产品视图
@@ -309,49 +309,11 @@ public class ProjectDeatailActivity extends BaseActivity implements
 	}
 
 	/**
-	 * 修改税率
-	 */
-	private void modifyRate(final Product product) {
-		final EditText editText = new EditText(this);
-		editText.setSingleLine(true);
-		editText.setText(String.valueOf(product.getRate()));
-		Dialog dialog = new AlertDialog.Builder(this)
-				.setTitle("修改税率")
-				.setView(editText)
-				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						// TODO Auto-generated method stub
-						String rate = editText.getText().toString();
-						if (MathUtil.isFloatNumber(rate, 0, 100, false, false)) {// 正确的数值
-							product.setRate(Float.parseFloat(rate));
-							productAdapter.notifyDataSetChanged();
-						} else {// 非法的数值
-							showShortToast("请输入正确的数值");
-						}
-					}
-				})
-				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						dialog.dismiss();
-					}
-				}).create();
-		dialog.setCanceledOnTouchOutside(false);
-		dialog.show();
-
-	}
-
-	/**
 	 * 修改报价
 	 */
 	private void modifyPrice(final Product product) {
 		final EditText editText = new EditText(this);
 		editText.setSingleLine(true);
-		editText.setInputType(InputType.TYPE_CLASS_NUMBER);
 		editText.setText(String.valueOf(product.getCurrentPrice()));
 		Dialog dialog = new AlertDialog.Builder(this)
 				.setTitle("修改报价")
@@ -480,7 +442,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 			showShortToast("项目已经截止,无法操作");
 			return;
 		}
-		if (project.isCurrentQuote()){//已经操作过了
+		if (project.isCurrentQuote()) {// 已经操作过了
 			return;
 		}
 
@@ -503,13 +465,13 @@ public class ProjectDeatailActivity extends BaseActivity implements
 				switch (ob.getStatus()) {
 				case HttpConstants.SUCCESS:
 					project.setCurrentQuote(true);
-					if(ctProject!=null){
+					if (ctProject != null) {
 						ctProject.setCurrentQuote(true);
 					}
-					refused.setBackgroundColor(getResources()
-							.getColor(R.color.hintColor));
-					modify.setBackgroundColor(getResources()
-							.getColor(R.color.hintColor));
+					refused.setBackgroundColor(getResources().getColor(
+							R.color.hintColor));
+					modify.setBackgroundColor(getResources().getColor(
+							R.color.hintColor));
 					showShortToast("操作成功");
 					break;
 
@@ -545,7 +507,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 			showShortToast("项目已经截止,无法操作");
 			return;
 		}
-		if(project.isCurrentQuote()){
+		if (project.isCurrentQuote()) {
 			return;
 		}
 
@@ -581,9 +543,9 @@ public class ProjectDeatailActivity extends BaseActivity implements
 								switch (ob.getStatus()) {
 								case HttpConstants.SUCCESS:
 									showShortToast("询价成功");
-									
+
 									project.setCurrentQuote(true);
-									if(ctProject!=null){
+									if (ctProject != null) {
 										ctProject.setCurrentQuote(true);
 									}
 									refused.setBackgroundColor(getResources()
@@ -697,7 +659,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 	 * 询比价报价
 	 */
 	private void comparisonQuotePrice() {
-		if (project.isCurrentQuote()) {// 已经报价，返回
+		if (project.isCurrentQuote()&&project.getCurrentNumber()!=1) {// 已经报价，返回
 			return;
 		} else if (Time.getInstance().dataIsAbort(project.getEndTime(),
 				Time.DATE_PATTERN_6)) {// 项目报价时间截止
@@ -756,7 +718,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 				} else {
 
 					project.setCurrentQuote(true);
-					if(ctProject!=null){
+					if (ctProject != null) {
 						ctProject.setCurrentQuote(true);
 					}
 					quote.setBackgroundColor(getResources().getColor(

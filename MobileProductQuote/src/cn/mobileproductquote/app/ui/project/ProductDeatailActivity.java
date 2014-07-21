@@ -123,7 +123,7 @@ public class ProductDeatailActivity extends BaseActivity implements
 	private void modifyRate() {
 		final EditText editText = new EditText(this);
 		editText.setSingleLine(true);
-		editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+		
 		editText.setText(String.valueOf(product.getRate()));
 		Dialog dialog = new AlertDialog.Builder(this)
 				.setTitle("修改税率")

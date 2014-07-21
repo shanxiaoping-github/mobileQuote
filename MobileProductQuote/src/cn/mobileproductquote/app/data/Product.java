@@ -12,7 +12,7 @@ import org.json.JSONObject;
  * @author Administrator
  * 
  */
-public class Product implements BaseData{
+public class Product implements BaseData {
 
 	private String serialNumber = "";// 产品编码
 	private String name = "";// 产品名称
@@ -91,13 +91,14 @@ public class Product implements BaseData{
 	public void parser(JSONObject jo) {
 		// TODO Auto-generated method stub
 		try {
+
 			serialNumber = jo.getString("serialNumber");
 			name = jo.getString("name");
 			number = jo.getDouble("number");
 			unit = jo.getString("unit");
-
+			currentPrice = jo.getDouble("currentPrice");
 			lastPrice = jo.getDouble("lastPrice");
-			
+
 			rate = jo.getDouble("rate");
 
 			describe = jo.getString("describe");
@@ -114,7 +115,7 @@ public class Product implements BaseData{
 	 * @return
 	 */
 	public boolean isChange(int currentQuoteNumber) {
-		if(currentQuoteNumber==1){
+		if (currentQuoteNumber == 1) {
 			return true;
 		}
 		return currentPrice - lastPrice != 0;
