@@ -28,6 +28,13 @@ public class HttpEndtimeProject extends BaseAsynHttpClient {
 			if (status == HttpConstants.SUCCESS) {
 				String projectInfo = jo.getString("projectInfo");
 				list = Project.getArray(projectInfo);
+				if(list.size()<=0){
+					setEmpty(true);
+				}
+			}else if(status==HttpConstants.EMPTY){
+				setEmpty(true);
+			}else{
+				setFail(true);
 			}
 
 		} catch (JSONException e) {

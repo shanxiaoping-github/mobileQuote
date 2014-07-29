@@ -38,15 +38,16 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:textColor="@color/shallowGray" />
-
-        <TextView
-            android:id="@+id/project_deatail_current_quotenumber"
-            style="@style/one_level_font"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/shallowGray" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/project_deatail_current_quotenumber"
+        style="@style/one_level_font"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:textColor="@color/shallowGray"/>
 
     <TextView
         android:id="@+id/project_deatail_quote"
@@ -54,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_below="@id/project_deatail_current_quotenumber"
         android:layout_marginTop="5dip"
         android:background="@drawable/blue_gray_select"
         android:gravity="center"
@@ -70,10 +72,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_below="@id/project_deatail_current_quotenumber"
         android:layout_marginTop="5dip"
-       
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="invisible" >
 
         <TextView
             android:id="@+id/project_deatail_refuse"

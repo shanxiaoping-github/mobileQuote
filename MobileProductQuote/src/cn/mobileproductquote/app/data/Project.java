@@ -112,6 +112,7 @@ public class Project implements BaseData {
 		return null;
 	}
 
+	@SuppressWarnings("finally")
 	public static ArrayList<Project> getArray(String content) {
 		ArrayList<Project> list = new ArrayList<Project>();
 		try {
@@ -125,8 +126,10 @@ public class Project implements BaseData {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			return list;
 		}
-		return list;
+	
 
 	}
 

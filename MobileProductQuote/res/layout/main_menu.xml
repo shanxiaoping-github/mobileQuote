@@ -48,6 +48,7 @@
         android:background="@color/white" />
 
     <Button
+        android:visibility="visible"
         android:id="@+id/main_menu_end_project"
         style="@style/two_level_font"
         android:layout_width="match_parent"

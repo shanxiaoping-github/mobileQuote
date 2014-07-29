@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import cn.mobileproductquote.app.http.HttpComparisonOprate;
 import cn.mobileproductquote.app.http.HttpComparisonQuote;
 import cn.mobileproductquote.app.http.HttpMethod;
 import cn.mobileproductquote.app.http.HttpProducts;
+import cn.mobileproductquote.app.http.HttpProjectQuote;
 import cn.mobileproductquote.app.intrface.AdapterItemListener;
 import cn.mobileproductquote.app.intrface.BaseListener;
 import cn.mobileproductquote.app.main.MyApplication;
@@ -44,7 +46,7 @@ import cn.mobileproductquote.app.util.Time;
 public class ProjectDeatailActivity extends BaseActivity implements
 		AdapterItemListener, OnClickListener {
 	public static Project ctProject = null;// 当前项目
-	private int state = 0;// 0可报价，1已截止,2询价
+	private int state = 0;// 0可报价，1 询比价截止,3招投标截止，2询价
 	private Project project;// 项目对象
 	private ListView listView;// 产品视图
 	private ArrayList<Product> list;// 产品数据数组
@@ -56,7 +58,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 	private TextView projectRate;// 项目税率
 	private TextView projectRemainQuoteNumber;// 项目剩余报价轮次
 	private LinearLayout bottomGroup;// 底部容器
-	private TextView type;
+	private ImageView type;
 	private ImageButton more;
 	private ImageButton error;// 错误
 	private TextView empty;// 空
@@ -67,7 +69,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 		setContentView(R.layout.project_deatail);
 		state = getIntent().getExtras().getInt("state");
 		project = (Project) getIntent().getExtras().getSerializable("project");
-		type = (TextView) findViewById(R.id.project_deatail_type);
+		type = (ImageView) findViewById(R.id.project_deatail_type);
 		more = (ImageButton) findViewById(R.id.project_deatail_more);
 		more.setOnClickListener(this);
 		error = (ImageButton) findViewById(R.id.project_deatail_error);
@@ -75,7 +77,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 		empty = (TextView) findViewById(R.id.project_deatail_empty);
 		switch (state) {
 		case 0:
-			type.setText("投");
+			type.setImageResource(R.drawable.tou);
 			if (project.getCurrentNumber() > 1) {
 				more.setVisibility(View.VISIBLE);
 			} else {
@@ -84,11 +86,12 @@ public class ProjectDeatailActivity extends BaseActivity implements
 			break;
 
 		case 1:
-			type.setText("止");
+		case 3:
+			type.setImageResource(R.drawable.jie);
 			more.setVisibility(View.GONE);
 			break;
 		case 2:
-			type.setText("询");
+			type.setImageResource(R.drawable.xun);
 			if (project.getCurrentNumber() > 1) {
 				more.setVisibility(View.VISIBLE);
 			} else {
@@ -112,7 +115,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 		productAdapter.setList(list);
 		productAdapter.setListener(this);
 		listView.setAdapter(productAdapter);
-		getProducts();
+		getProducts(project.getCurrentNumber());
 
 	}
 
@@ -123,7 +126,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 	private View refused;// 拒绝
 	private View modify;// 修改
 
-	private void initbottom() {
+	private void initbottom(int currTurn) {
 		bottomGroup = (LinearLayout) findViewById(R.id.project_deatail_bottom);
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT);
@@ -143,24 +146,35 @@ public class ProjectDeatailActivity extends BaseActivity implements
 					.findViewById(R.id.project_deatail_current_price_total);
 			quote = view0.findViewById(R.id.project_deatail_quote);
 			quote.setOnClickListener(this);
-			refused = view0.findViewById(R.id.project_deatail_refused);
-			if (project.getCurrentNumber() != 1) {
-				refused.setVisibility(View.VISIBLE);
-				refused.setOnClickListener(this);
-			} else {
-				int hSize = MathUtil.diptopx(this, 10);
-				int wSize = MathUtil.diptopx(this, 20);
-				quote.setPadding(wSize, hSize, wSize, hSize);
-				refused.setVisibility(View.GONE);
-			}
+			
 			totalCurrentPrice();
-			totalLastPrice();
+			totalLastPrice(currTurn);
+			((TextView) quote).setText("报价");
 			projectRate.setText("基础税率:" + project.getRate() + "%");
-			projectRemainQuoteNumber.setText("第" + project.getCurrentNumber()
+			projectRemainQuoteNumber.setText("第" + currTurn
 					+ "轮");
+			
+			if(currTurn==project.getCurrentNumber()){//当前轮次
+				quote.setVisibility(View.VISIBLE);
+				if (project.getCurrentNumber() == 1 && project.isCurrentQuote()) {// 第一次报价,且已经报了
+					TextView quoteTextView = (TextView) quote;
+					quoteTextView.setText("修改");
+				}
+				if (project.getCurrentNumber() > 1 && project.isCurrentQuote()) {
+					quote.setBackgroundColor(getResources().getColor(
+							R.color.hintColor));
+				}
+				
+			}else{//记录
+				quote.setVisibility(View.GONE);
+			}
+
+			
+			
 			bottomGroup.addView(view0, params);
 			break;
 		case 1:// 截止
+		case 3:
 			bottomGroup.setVisibility(View.GONE);
 			break;
 		case 2:// 询价
@@ -183,44 +197,56 @@ public class ProjectDeatailActivity extends BaseActivity implements
 			modify.setOnClickListener(this);
 			quote = view1.findViewById(R.id.project_deatail_quote);
 			quote.setOnClickListener(this);
-			View comparisonOperate = view1
-					.findViewById(R.id.project_deatail_comparison);
-			if (project.getCurrentNumber() > 1) {
-				comparisonOperate.setVisibility(View.VISIBLE);
-				if (project.isCurrentQuote()) {// 已经操作过了
-
-					refused.setBackgroundColor(getResources().getColor(
-							R.color.hintColor));
-					modify.setBackgroundColor(getResources().getColor(
-							R.color.hintColor));
-				}
-				quote.setVisibility(View.GONE);
-			} else {
-				comparisonOperate.setVisibility(View.GONE);
+			
+			if(currTurn==project.getCurrentNumber()){
+				refused.setVisibility(View.VISIBLE);
+				modify.setVisibility(View.VISIBLE);
 				quote.setVisibility(View.VISIBLE);
-				if (project.isCurrentQuote()) {// 已经报价了
-					quote.setBackgroundColor(getResources().getColor(
-							R.color.hintColor));
-				} else {// 未报价
+				View comparisonOperate = view1
+						.findViewById(R.id.project_deatail_comparison);
+				if (project.getCurrentNumber() > 1) {
+					comparisonOperate.setVisibility(View.VISIBLE);
+					if (project.isCurrentQuote()) {// 已经操作过了
 
-					quote.setBackgroundDrawable(getResources().getDrawable(
-							R.drawable.blue_gray_select));
+						refused.setBackgroundColor(getResources().getColor(
+								R.color.hintColor));
+						modify.setBackgroundColor(getResources().getColor(
+								R.color.hintColor));
+					}
+					quote.setVisibility(View.GONE);
+				} else {
+					comparisonOperate.setVisibility(View.GONE);
+					quote.setVisibility(View.VISIBLE);
+					if (project.isCurrentQuote()) {// 已经报价了
+						comparState = 1;
+						TextView comparTextView = (TextView) quote;
+						comparTextView.setText("修改");
 
+					}
 				}
+			}else{
+				
+				refused.setVisibility(View.GONE);
+				modify.setVisibility(View.GONE);
+				quote.setVisibility(View.GONE);
 			}
+			
 			totalCurrentPrice();
-			totalLastPrice();
+			totalLastPrice(currTurn);
 			projectRate.setText("基础税率:" + project.getRate() + "%");
-			projectRemainQuoteNumber.setText("第" + project.getCurrentNumber()
+			projectRemainQuoteNumber.setText("第" + currTurn
 					+ "轮");
 			bottomGroup.addView(view1, params);
 			break;
 		}
 	}
 
-	private void getProducts() {
+	private void getProducts(final int currTurn) {
+		
 		error.setVisibility(View.GONE);
 		empty.setVisibility(View.GONE);
+		list.clear();
+		productAdapter.notifyDataSetChanged();
 		AsynHcResponseListener listener = new AsynHcResponseListener() {
 
 			@Override
@@ -241,8 +267,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 					productAdapter.notifyDataSetChanged();
 
 					// 初始底部
-
-					initbottom();
+					initbottom(currTurn);
 
 				}
 				return false;
@@ -258,12 +283,28 @@ public class ProjectDeatailActivity extends BaseActivity implements
 		};
 		ShowUtil.openHttpDialog(getResources().getString(
 				R.string.loading_prompt0));
+		int adress=-1;
+		switch (state){
+		case 0:
+			adress=HttpConstants.BIDDING;
+			break;
+
+		case 1:
+			adress=HttpConstants.ENDCP;
+			break;
+		case 2:
+			adress=HttpConstants.COMPARISON;
+			break;
+		case 3:
+			adress=HttpConstants.ENDIN;
+			break;
+		}
+		
 		HttpMethod.getInstance().getProjectProducts(
 				MyApplication.getInstance().getUser().getId(),
 				project.getSerialNumber(),
-				project.getCurrentNumber(),
-				state == 0 ? HttpConstants.BIDDING
-						: (state == 2 ? HttpConstants.COMPARISON : -100),
+				currTurn,
+				adress,
 				listener);
 	}
 
@@ -285,8 +326,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 			};
 			ProductDeatailActivity.setListener(listener);
 			ProductDeatailActivity.setProduct(product);
-			if (state == 1
-					|| (project.isCurrentQuote() && project.getCurrentNumber() > 1)) {
+			if (state == 1 ||state == 3|| (project.getCurrentNumber() > 1&&state==2)) {
 				ProductDeatailActivity.setModify(false);
 			} else {
 				ProductDeatailActivity.setModify(true);
@@ -294,14 +334,11 @@ public class ProjectDeatailActivity extends BaseActivity implements
 			openActivity(ProductDeatailActivity.class);
 			break;
 
-		case 1:// 报价修改
-			if (this.state != 1) {
-				// if (project.getCurrentNumber() != 1 &&
-				// project.isCurrentQuote()) {
-				// showShortToast("非首轮不能多次修改报价");
-				// } else {
+		case 1://报价修改
+			if (this.state != 1&&this.state!=3) {
+				
 				modifyPrice(product);
-				// }
+				
 			}
 			break;
 		}
@@ -328,9 +365,10 @@ public class ProjectDeatailActivity extends BaseActivity implements
 						if (!MathUtil.isFloatNumber(price, 0, Float.MAX_VALUE,
 								true, true)) {// 非法的数值
 							showShortToast("请输入正确的数值");
-						} else if (Float.valueOf(price)
-								- product.getCurrentPrice() == 0) {
-							showShortToast("请输入不同的报价");
+
+						} else if (!isMaxLast(Double.valueOf(price),
+								product.getLastPrice())) {
+							showShortToast("产品单价应该高于上一次报价");
 						} else {
 
 							product.setCurrentPrice(Float.parseFloat(price));
@@ -351,15 +389,29 @@ public class ProjectDeatailActivity extends BaseActivity implements
 		dialog.show();
 	}
 
+	private boolean isMaxLast(double value, double lastValue) {
+		if(state==2){
+			return true;
+		}
+		if (project.getCurrentNumber() == 1) {
+			return true;
+		}
+		if(lastValue==0){
+			return true;
+		}
+		if (value - lastValue < 0) {
+			return true;
+		}
+		return false;
+
+	}
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.project_deatail_more:// 更多轮次
 			moreRounds();
-			break;
-		case R.id.project_deatail_refused:// 拒绝报价
-			refusedPrice();
 			break;
 		case R.id.project_deatail_quote:// 招投标报价或询比价报价
 			quotePrice();
@@ -375,7 +427,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 			modificationPrice();
 			break;
 		case R.id.project_deatail_error:// 连接错误
-			getProducts();
+			getProducts(project.getCurrentNumber());
 			break;
 
 		}
@@ -385,7 +437,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 	 * 更多轮次
 	 */
 	private void moreRounds() {
-		int leng = project.getCurrentNumber() - 1;
+		int leng = project.getCurrentNumber();
 		String[] rounds = new String[leng];
 		for (int i = 0; i < leng; i++) {
 			int index = i + 1;
@@ -409,40 +461,21 @@ public class ProjectDeatailActivity extends BaseActivity implements
 	 * @param round
 	 */
 	private void item(int round) {
-		switch (state) {
-		case 0:// 报价轮次
-
-			break;
-
-		case 2:// 询价轮次
-			break;
-		}
+		getProducts(round);
 	}
 
-	/**
-	 * 拒绝报价
-	 */
-	private void refusedPrice() {
-		showShortToast("拒绝报价");
-	}
-
-	/**
-	 * 同意询价
-	 */
-	private void agreePrice() {
-		showShortToast("同意询价");
-	}
+	
 
 	/**
 	 * 拒绝询价
 	 */
 	private void refusePrice() {
+		if (project.isCurrentQuote()) {// 已经操作过了
+			return;
+		}
 		if (Time.getInstance().dataIsAbort(project.getEndTime(),
 				Time.DATE_PATTERN_6)) {// 项目时间截止
 			showShortToast("项目已经截止,无法操作");
-			return;
-		}
-		if (project.isCurrentQuote()) {// 已经操作过了
 			return;
 		}
 
@@ -502,108 +535,97 @@ public class ProjectDeatailActivity extends BaseActivity implements
 	 * 修改询价
 	 */
 	private void modificationPrice() {
+		if (project.isCurrentQuote() && project.getCurrentNumber() != 1) {// 已经报价，返回
+			return;
+		}
 		if (Time.getInstance().dataIsAbort(project.getEndTime(),
 				Time.DATE_PATTERN_6)) {// 项目时间截止
 			showShortToast("项目已经截止,无法操作");
 			return;
 		}
-		if (project.isCurrentQuote()) {
+
+		if (!isChange()) {
+			showLongToast("产品价格未有变动");
 			return;
 		}
 
-		if (!isChange()) {
-			showLongToast(state == 0 ? "无法报价，没有修改任何产品询价" : "无法询价,没有修改任何产品询价");
-		} else {
-			final ArrayList<Product> changList = getChangeProducts();
-			if (changList.size() > 0) {
+		final ArrayList<Product> changList = getChangeProducts();
 
-				BaseListener listener = new BaseListener() {
+		BaseListener listener = new BaseListener() {
 
-					@Override
-					public boolean onListener(Object... objects) {
-						// TODO Auto-generated method stub
-						// showShortToast("向服务器询价");
-						AsynHcResponseListener listener = new AsynHcResponseListener() {
-
-							@Override
-							public boolean onTimeout() {
-								// TODO Auto-generated method stub
-								ShowUtil.closeHttpDialog();
-								showShortToast(R.string.loading_prompt1);
-								return false;
-							}
-
-							@Override
-							public boolean onSuccess(
-									BaseAsynHttpClient asynHttpClient) {
-								// TODO Auto-generated method stub
-								ShowUtil.closeHttpDialog();
-
-								HttpComparisonOprate ob = (HttpComparisonOprate) asynHttpClient;
-								switch (ob.getStatus()) {
-								case HttpConstants.SUCCESS:
-									showShortToast("询价成功");
-
-									project.setCurrentQuote(true);
-									if (ctProject != null) {
-										ctProject.setCurrentQuote(true);
-									}
-									refused.setBackgroundColor(getResources()
-											.getColor(R.color.hintColor));
-									modify.setBackgroundColor(getResources()
-											.getColor(R.color.hintColor));
-									break;
-
-								case HttpConstants.FAIL:
-									showShortToast("询价失败");
-									break;
-								}
-
-								return false;
-							}
-
-							@Override
-							public boolean onEmpty() {
-								// TODO Auto-generated method stub
-								ShowUtil.closeHttpDialog();
-								return false;
-							}
-						};
-						ShowUtil.openHttpDialog(getResources().getString(
-								R.string.loading_prompt2));
-						HttpMethod.getInstance().projectComparisonOperate(
-								MyApplication.getInstance().getUser().getId(),
-								project.getCurrentNumber(),
-								project.getSerialNumber(),
-								getQuoteProduct(changList), listener);
-						return true;
-					}
-				};
-				ProjectQuoteDeatailActiviy.setListener(listener);
-				Bundle bundle = new Bundle();
-				bundle.putInt("state", state);
-				bundle.putSerializable("list", changList);
-				bundle.putSerializable("project", project);
-				bundle.putInt("manxProductNumber", list.size());
-				openActivity(ProjectQuoteDeatailActiviy.class, bundle);
+			@Override
+			public boolean onListener(Object... objects) {
+				// TODO Auto-generated method stub
+				// showShortToast("向服务器询价");
+				httpComparisonQuotePrice(getQuoteProduct(list));
+				return true;
 			}
-		}
+		};
+		ProjectQuoteDeatailActiviy.setListener(listener);
+		Bundle bundle = new Bundle();
+		bundle.putInt("state", state);
+		bundle.putSerializable("list", changList);
+		bundle.putSerializable("project", project);
+		bundle.putInt("manxProductNumber", list.size());
+		openActivity(ProjectQuoteDeatailActiviy.class, bundle);
+
 	}
 
 	/**
-	 * 判断能否报价，只要有一个产品没有填写报价，则不能进行报价
-	 * 
-	 * @return
+	 * 发送询价请求
 	 */
-	private boolean isCantQuotPrice() {
-		for (int i = 0; i < list.size(); i++) {
-			Product product = list.get(i);
-			if (product.getCurrentPrice() <= 0) {
-				return true;
+	private void httpModificationPrice(ArrayList<QuoteProduct> changList) {
+		AsynHcResponseListener listener = new AsynHcResponseListener() {
+
+			@Override
+			public boolean onTimeout() {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+				showShortToast("修改超时");
+				return false;
 			}
-		}
-		return false;
+
+			@Override
+			public boolean onSuccess(BaseAsynHttpClient asynHttpClient) {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+
+				HttpComparisonOprate ob = (HttpComparisonOprate) asynHttpClient;
+				switch (ob.getStatus()) {
+				case HttpConstants.SUCCESS:
+					showShortToast("修改成功");
+
+					project.setCurrentQuote(true);
+					if (ctProject != null) {
+						ctProject.setCurrentQuote(true);
+					}
+
+					break;
+
+				case HttpConstants.FAIL:
+					showShortToast("询价失败");
+					break;
+				}
+
+				return false;
+			}
+
+			@Override
+			public boolean onEmpty() {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+				return false;
+			}
+		};
+		ShowUtil.openHttpDialog(getResources().getString(
+				R.string.loading_prompt2));
+		HttpMethod.getInstance().projectComparisonOperate(
+				MyApplication.getInstance().getUser().getId(),
+				project.getCurrentNumber(), project.getSerialNumber(),
+				changList, listener);
 	}
+
+	
 
 	/**
 	 * 报价
@@ -625,79 +647,50 @@ public class ProjectDeatailActivity extends BaseActivity implements
 	 * 招投标报价
 	 */
 	private void biddingQuotePrice() {
-		if (project.isCurrentQuote() && project.getCurrentNumber() != 1) {
-			showLongToast("非首轮不能进行多次报价");
-		} else if (isCantQuotPrice() || !isChange()) {// 第一次没有报价或者没有改动报价
-			showLongToast("无法报价,请修改产品报价");
-		} else {
-			ArrayList<Product> changList = getChangeProducts();
-			if (changList.size() > 0) {
 
-				BaseListener listener = new BaseListener() {
-
-					@Override
-					public boolean onListener(Object... objects) {
-						// TODO Auto-generated method stub
-						showShortToast("向服务器报价");
-
-						return false;
-					}
-				};
-				ProjectQuoteDeatailActiviy.setListener(listener);
-				Bundle bundle = new Bundle();
-				bundle.putInt("state", state);
-				bundle.putSerializable("list", changList);
-				bundle.putSerializable("project", project);
-				bundle.putInt("manxProductNumber", list.size());
-				openActivity(ProjectQuoteDeatailActiviy.class, bundle);
-			}
-		}
-
-	}
-
-	/**
-	 * 询比价报价
-	 */
-	private void comparisonQuotePrice() {
-		if (project.isCurrentQuote()&&project.getCurrentNumber()!=1) {// 已经报价，返回
+		if (project.isCurrentQuote() && project.getCurrentNumber() > 1) {
 			return;
-		} else if (Time.getInstance().dataIsAbort(project.getEndTime(),
-				Time.DATE_PATTERN_6)) {// 项目报价时间截止
+		}
+		if (Time.getInstance().dataIsAbort(project.getEndTime(),
+				Time.DATE_PATTERN_6)) {// 项目时间截止
 			showShortToast("项目已经截止,无法操作");
+			return;
+		}
+		if (!isChange()) {
+			showLongToast("未发现有产品报价变动");
+			return;
 		}
 
-		else {
-			final ArrayList<Product> changList = getChangeProducts();
-			if (changList.size() > 0) {
+		final ArrayList<Product> changList = getChangeProducts();
 
-				BaseListener listener = new BaseListener() {
+		BaseListener listener = new BaseListener() {
 
-					@Override
-					public boolean onListener(Object... objects) {
-						// TODO Auto-generated method stub
-						// showShortToast("向服务器报价");
-						httpComparisonQuotePrice(getQuoteProduct(changList));
+			@Override
+			public boolean onListener(Object... objects) {
+				// TODO Auto-generated method stub
+				if (project.isCurrentQuote() && project.getCurrentNumber() == 1) {// 修改
+					httpBiddingModify(getQuoteProduct(list));
+				} else {// 报价
+					httpBiddingQuote(getQuoteProduct(list));
+				}
 
-						return false;
-					}
-				};
-				ProjectQuoteDeatailActiviy.setListener(listener);
-				Bundle bundle = new Bundle();
-				bundle.putInt("state", 0);
-				bundle.putSerializable("list", changList);
-				bundle.putSerializable("project", project);
-				bundle.putInt("manxProductNumber", list.size());
-				openActivity(ProjectQuoteDeatailActiviy.class, bundle);
+				return false;
 			}
-
-		}
+		};
+		ProjectQuoteDeatailActiviy.setListener(listener);
+		Bundle bundle = new Bundle();
+		bundle.putInt("state", state);
+		bundle.putSerializable("list", changList);
+		bundle.putSerializable("project", project);
+		bundle.putInt("manxProductNumber", list.size());
+		openActivity(ProjectQuoteDeatailActiviy.class, bundle);
 
 	}
 
 	/**
-	 * 发送询比价报价请求
+	 * 招投标报价
 	 */
-	private void httpComparisonQuotePrice(ArrayList<QuoteProduct> list) {
+	private void httpBiddingQuote(ArrayList<QuoteProduct> list) {
 		AsynHcResponseListener listener = new AsynHcResponseListener() {
 
 			@Override
@@ -712,18 +705,22 @@ public class ProjectDeatailActivity extends BaseActivity implements
 			public boolean onSuccess(BaseAsynHttpClient asynHttpClient) {
 				// TODO Auto-generated method stub
 				ShowUtil.closeHttpDialog();
-				HttpComparisonQuote ob = (HttpComparisonQuote) asynHttpClient;
-				if (ob.getStatus() == HttpConstants.FAIL) {
-					showShortToast("报价失败");
-				} else {
-
+				HttpProjectQuote ob = (HttpProjectQuote) asynHttpClient;
+				if (ob.getStatus() == HttpConstants.SUCCESS) {
 					project.setCurrentQuote(true);
-					if (ctProject != null) {
+					if(ctProject!=null){
 						ctProject.setCurrentQuote(true);
 					}
-					quote.setBackgroundColor(getResources().getColor(
-							R.color.hintColor));
+					if (project.getCurrentNumber() == 1) {
+						TextView quoteTextView = (TextView) quote;
+						quoteTextView.setText("修改");
+					} else {
+						quote.setBackgroundColor(getResources().getColor(
+								R.color.hintColor));
+					}
 					showShortToast("报价成功");
+				} else {
+					showShortToast("报价失败");
 				}
 				return false;
 			}
@@ -736,6 +733,170 @@ public class ProjectDeatailActivity extends BaseActivity implements
 			}
 		};
 		ShowUtil.openHttpDialog("报价中...");
+		HttpMethod.getInstance().projectQuote(project.getSerialNumber(),
+				project.getCurrentNumber(), list, listener);
+
+	}
+
+	/**
+	 * 招投标修改
+	 */
+	private void httpBiddingModify(ArrayList<QuoteProduct> list) {
+		AsynHcResponseListener listener = new AsynHcResponseListener() {
+
+			@Override
+			public boolean onTimeout() {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+				showShortToast("修改超时");
+				return false;
+			}
+
+			@Override
+			public boolean onSuccess(BaseAsynHttpClient asynHttpClient) {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+				HttpProjectQuote ob = (HttpProjectQuote) asynHttpClient;
+				if (ob.getStatus() == HttpConstants.SUCCESS) {
+					showShortToast("修改成功");
+
+				} else {
+					showShortToast("修改失败");
+				}
+				return false;
+			}
+
+			@Override
+			public boolean onEmpty() {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+				return false;
+			}
+		};
+		ShowUtil.openHttpDialog("修改中...");
+		HttpMethod.getInstance().projectModify(project.getSerialNumber(),
+				project.getCurrentNumber(), list, listener);
+	}
+
+	/**
+	 * 询比价报价
+	 */
+	private void comparisonQuotePrice() {
+		if (project.isCurrentQuote() && project.getCurrentNumber() != 1) {// 已经报价，返回
+			return;
+		}
+		if (Time.getInstance().dataIsAbort(project.getEndTime(),
+				Time.DATE_PATTERN_6)) {// 项目报价时间截止
+			showShortToast("项目已经截止,无法操作");
+			return;
+		}
+		if (!isChange()) {
+			showShortToast("产品报价没有变动");
+			return;
+		}
+
+		final ArrayList<Product> changList = getChangeProducts();
+
+		BaseListener listener = new BaseListener() {
+
+			@Override
+			public boolean onListener(Object... objects) {
+				// TODO Auto-generated method stub
+				// showShortToast("向服务器报价");
+				comparisonQuotePrice(getQuoteProduct(list));
+
+				return false;
+			}
+		};
+		ProjectQuoteDeatailActiviy.setListener(listener);
+		Bundle bundle = new Bundle();
+		bundle.putInt("state", 0);
+		bundle.putSerializable("list", changList);
+		bundle.putSerializable("project", project);
+		bundle.putInt("manxProductNumber", list.size());
+		openActivity(ProjectQuoteDeatailActiviy.class, bundle);
+
+	}
+
+	/**
+	 * 询比价报价
+	 */
+	private int comparState = 0;// 0报价，1修改 都为第一次
+
+	private void comparisonQuotePrice(ArrayList<QuoteProduct> list) {
+		switch (comparState) {
+		case 0:// 询比价报价
+			httpComparisonQuotePrice(list);
+			break;
+
+		case 1:// 询比价修改
+			httpModificationPrice(list);
+			break;
+		}
+
+	}
+
+	/**
+	 * 发送询比价报价
+	 * 
+	 * @param list
+	 */
+	private void httpComparisonQuotePrice(ArrayList<QuoteProduct> list) {
+		AsynHcResponseListener listener = new AsynHcResponseListener() {
+
+			@Override
+			public boolean onTimeout() {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+				if (project.getCurrentNumber() == 1) {
+					showShortToast("报价超时");
+				} else {
+					showShortToast("询价超时");
+				}
+
+				return false;
+			}
+
+			@Override
+			public boolean onSuccess(BaseAsynHttpClient asynHttpClient) {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+				HttpComparisonQuote ob = (HttpComparisonQuote) asynHttpClient;
+				if (ob.getStatus() == HttpConstants.FAIL) {
+					showShortToast(project.getCurrentNumber() == 1 ? "报价失败"
+							: "询价失败");
+				} else {
+					project.setCurrentQuote(true);
+					if (ctProject != null) {
+						ctProject.setCurrentQuote(true);
+					}
+					if (project.getCurrentNumber() == 1) {
+						comparState = 1;
+						TextView quoteTextView = (TextView) quote;
+						quoteTextView.setText("修改");
+						showShortToast("报价成功");
+					} else {
+						refused.setBackgroundColor(getResources().getColor(
+								R.color.hintColor));
+						modify.setBackgroundColor(getResources().getColor(
+								R.color.hintColor));
+
+						showShortToast("询价成功");
+					}
+
+				}
+				return false;
+			}
+
+			@Override
+			public boolean onEmpty() {
+				// TODO Auto-generated method stub
+				ShowUtil.closeHttpDialog();
+				return false;
+			}
+		};
+		ShowUtil.openHttpDialog(project.getCurrentNumber() == 1 ? "报价中..."
+				: "询价中...");
 		HttpMethod.getInstance().projectComparisonQuote(
 				project.getCurrentNumber(), project.getSerialNumber(), list,
 				listener);
@@ -818,8 +979,8 @@ public class ProjectDeatailActivity extends BaseActivity implements
 				+ "元");
 	}
 
-	private void totalLastPrice() {
-		if (project.getCurrentNumber() == 1) {// 第一次报价
+	private void totalLastPrice(int currenTurn){
+		if (currenTurn == 1) {// 第一次报价
 			totalLastPrice.setVisibility(View.GONE);
 		} else {
 			totalLastPrice.setVisibility(View.VISIBLE);

@@ -14,6 +14,7 @@ import cn.mobileproductquote.app.util.Time;
  *
  */
 public class ProjectAdapter extends BaseAdapter<Project>{
+	
 
 	@Override
 	public View view(int arg0, View arg1, ViewGroup arg2) {

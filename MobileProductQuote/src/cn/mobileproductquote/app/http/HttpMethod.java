@@ -97,13 +97,22 @@ public class HttpMethod {
 	 * @param listener
 	 *            监听器
 	 */
-	public void getEndtimeProject(int userId, int type,
+	public void getEndtimeProject(int type,
 			AsynHcResponseListener listener) {
 		HttpEndtimeProject ob = new HttpEndtimeProject();
-		ob.setPramas(new String[] { "userId", "type" }, new Object[] { userId,
+		ob.setPramas(new String[] { "userId", "type" }, new Object[] { MyApplication.getInstance().getUser().getId(),
 				type });
 		ob.addAsynHcResponseListenrt(listener);
-		ob.getUrl(HttpAddress.ENDTIME_PROJECT);
+		switch (type) {
+		case HttpConstants.COMPARISON://询比价
+			ob.getUrl(HttpAddress.ENDTIME_COMPARISON_PROJECT);
+			break;
+
+		case HttpConstants.BIDDING://招投标
+			ob.getUrl(HttpAddress.ENDTIME_BIDDING_PROJECT);
+			break;
+		}
+		
 	}
 
 	/**
@@ -113,32 +122,20 @@ public class HttpMethod {
 	 * @param type
 	 * @param listener
 	 */
-	public void seachProject(int userId, String projectKey, int type,
+	public void seachProject(int userId, String projectKey,
 			AsynHcResponseListener listener) {
 		HttpSeachProject ob = new HttpSeachProject();
-		ob.setPramas(new String[] { "userId", "projectKey", "type" },
-				new Object[] { userId, projectKey, type });
+		ob.setPramas(new String[] { "userId", "projectKey"},
+				new Object[] { userId, projectKey});
 		ob.addAsynHcResponseListenrt(listener);
 		ob.getUrl(HttpAddress.SEACH_PROECT);
 	}
 
-	/**
-	 * 获得用户详情
-	 * 
-	 * @param userId
-	 *            用户id
-	 * @param listener
-	 *            监听器
-	 */
-	public void getUserInformation(int userId, AsynHcResponseListener listener) {
-		HttpUserInformation ob = new HttpUserInformation();
-		ob.setPramas(new String[] { "userId" }, new Object[] { userId });
-		ob.addAsynHcResponseListenrt(listener);
-		ob.getUrl(HttpAddress.USERINFOMATION);
-	}
+
 
 	/**
 	 * 获得项目产品详情
+	 * 
 	 * @param userId
 	 * @param serialNumber
 	 *            项目编号
@@ -149,29 +146,31 @@ public class HttpMethod {
 	 * @param listener
 	 *            监听器
 	 */
-	public void getProjectProducts(int userId,String serialNumber, int currenTurn,
-			int type, AsynHcResponseListener listener) {
+	public void getProjectProducts(int userId, String serialNumber,
+			int currenTurn, int type, AsynHcResponseListener listener) {
 		HttpProducts ob = new HttpProducts();
-		ob.setPramas(new String[] { "userId","serialNumber", "currenTurn", "type" },
-				new Object[] { userId,serialNumber, currenTurn, type });
+		ob.setPramas(new String[] { "userId", "serialNumber", "currenTurn",
+				"type" },
+				new Object[] { userId, serialNumber, currenTurn, type==HttpConstants.COMPARISON||type==HttpConstants.ENDCP?HttpConstants.COMPARISON:HttpConstants.BIDDING });
 		ob.addAsynHcResponseListenrt(listener);
 		switch (type) {
-		case HttpConstants.COMPARISON://询比价
+		case HttpConstants.COMPARISON:// 询比价
 			ob.getUrl(HttpAddress.COMPARISON_PROJECT_DEATAIL);
 			break;
 
-		case HttpConstants.BIDDING://招投标
+		case HttpConstants.BIDDING:// 招投标
 			ob.getUrl(HttpAddress.BIDDING_PROJECT_DEATAIL);
 			break;
-		default://截止
+		case HttpConstants.ENDCP:// 询比价截止
+			ob.getUrl(HttpAddress.END_COMPARISON_PROJECT_DEATAIL);
 			break;
-		
+		case HttpConstants.ENDIN://招投标截止
+			ob.getUrl(HttpAddress.END_BIDDING_PROJECT_DEATAIL);
+			break;
+
 		}
-		
+
 	}
-	
-	
-	
 
 	/**
 	 * 项目报价
@@ -185,150 +184,193 @@ public class HttpMethod {
 	 * @param type
 	 *            项目类型
 	 */
-	private void projectQuote(int operateCode, String productQuoteInfo,
-			String serialNumber, int type, AsynHcResponseListener listener) {
-		HttpProjectQuote ob = new HttpProjectQuote();
-		ob.setPramas(new String[] { "operateCode", "productQuoteInfo",
-				"serialNumber", "type" }, new Object[] { operateCode,
-				productQuoteInfo, serialNumber, type
+	public void projectQuote(String serialNumber, int currenTurn,
+			ArrayList<QuoteProduct> list, AsynHcResponseListener listener) {
+		if (list == null || list.size() == 0) {
+			return;
+		}
+		JSONArray ja = new JSONArray();
+		for (int i = 0; i < list.size(); i++) {
+			QuoteProduct quoteProduct = list.get(i);
+			JSONObject jo = quoteProduct.page();
+			ja.put(jo);
 
-		});
+		}
+		String productQuoteInfo = ja.toString();
+		projectQuote(MyApplication.getInstance().getUser().getId(), 1,
+				productQuoteInfo, serialNumber, HttpConstants.BIDDING,
+				currenTurn, listener);
+	}
+
+	public void projectQuote(int userId, int operateCode,
+			String productQuoteInfo, String serialNumber, int type,
+			int currenTurn, AsynHcResponseListener listener) {
+		HttpProjectQuote ob = new HttpProjectQuote();
+		ob.setPramas(new String[] { "operateCode", "userId", "type",
+				"serialNumber", "currenTurn", "productQuoteInfo" },
+				new Object[] { operateCode, userId, type, serialNumber,
+						currenTurn, productQuoteInfo,
+
+				});
 		ob.addAsynHcResponseListenrt(listener);
-		ob.getUrl(HttpAddress.PROJECT_QUOTE);
+		ob.getUrl(HttpAddress.PROJECT_BIDDING_QUOTE);
 	}
-	/**
-	 * 拒绝报价
-	 * @param serialNumber 项目编号
-	 * @param type 项目类型
-	 * @param listener 监听器
-	 */
-	public void projectQuoteRefuse(String serialNumber,int type,AsynHcResponseListener listener){
-		projectQuote(HttpConstants.REFUSE, "", serialNumber, type, listener);
-	}
-	public void projuectQuote(String serialNumber,int type,ArrayList<QuoteProduct> list,AsynHcResponseListener listener){
-		if(list==null||list.size()==0){
+ 
+	public void projectModify(String serialNumber, int currenTurn,
+			ArrayList<QuoteProduct> list, AsynHcResponseListener listener) {
+		if (list == null || list.size() == 0) {
 			return;
 		}
 		JSONArray ja = new JSONArray();
-		for(int i=0;i<list.size();i++){
+		for (int i = 0; i < list.size(); i++) {
 			QuoteProduct quoteProduct = list.get(i);
 			JSONObject jo = quoteProduct.page();
 			ja.put(jo);
-			
+
 		}
 		String productQuoteInfo = ja.toString();
-		projectQuote(HttpConstants.AGREE,productQuoteInfo,serialNumber,type,listener);
+		projectModify(MyApplication.getInstance().getUser().getId(),2,
+				productQuoteInfo, serialNumber, HttpConstants.BIDDING,
+				currenTurn, listener);
 	}
-	
+	public void projectModify(int userId, int operateCode,
+			String productQuoteInfo, String serialNumber, int type,
+			int currenTurn, AsynHcResponseListener listener){
+		HttpProjectQuote ob = new HttpProjectQuote();
+		ob.setPramas(new String[] { "operateCode", "userId", "type",
+				"serialNumber", "currenTurn", "productQuoteInfo" },
+				new Object[] { operateCode, userId, type, serialNumber,
+						currenTurn, productQuoteInfo,
+
+				});
+		ob.addAsynHcResponseListenrt(listener);
+		ob.getUrl(HttpAddress.PROJECT_BIDDING_MODIFICATION);
+	}
+
 	/**
 	 * 询比价项目报价
-	 * @param currenTurn 当前轮次
-	 * @param serialNumber 项目编号
-	 * @param list 修改列表
-	 * @param listener 监听器
+	 * 
+	 * @param currenTurn
+	 *            当前轮次
+	 * @param serialNumber
+	 *            项目编号
+	 * @param list
+	 *            修改列表
+	 * @param listener
+	 *            监听器
 	 */
-	public void projectComparisonQuote(int currenTurn,String serialNumber,ArrayList<QuoteProduct> list,AsynHcResponseListener listener){
-		if(list==null||list.size()==0){
+	public void projectComparisonQuote(int currenTurn, String serialNumber,
+			ArrayList<QuoteProduct> list, AsynHcResponseListener listener) {
+		if (list == null || list.size() == 0) {
 			return;
 		}
 		JSONArray ja = new JSONArray();
-		for(int i=0;i<list.size();i++){
+		for (int i = 0; i < list.size(); i++) {
 			QuoteProduct quoteProduct = list.get(i);
 			JSONObject jo = quoteProduct.page();
 			ja.put(jo);
-			
+
 		}
 		String productQuoteInfo = ja.toString();
-		projectComparisonQuote(MyApplication.getInstance().getUser().getId(),serialNumber,currenTurn,HttpConstants.AGREE,productQuoteInfo,listener);
+		projectComparisonQuote(MyApplication.getInstance().getUser().getId(),
+				serialNumber, currenTurn, HttpConstants.AGREE,
+				productQuoteInfo, listener);
 	}
-	
+
 	/**
 	 * 询比价项目报价
-	 * @param userId 
+	 * 
+	 * @param userId
 	 * @param serialNumber
 	 * @param currenTurn
 	 * @param operateCode
 	 * @param productQuoteInfo
 	 */
-	public void projectComparisonQuote(int userId,String serialNumber,int currenTurn,int operateCode,String productQuoteInfo,AsynHcResponseListener listener){
+	public void projectComparisonQuote(int userId, String serialNumber,
+			int currenTurn, int operateCode, String productQuoteInfo,
+			AsynHcResponseListener listener) {
 		HttpComparisonQuote ob = new HttpComparisonQuote();
-		
-		ob.setPramas(new String[]{
-				"userId",
-				"operateCode",
-				"serialNumber",
-				"currenTurn",
-				"productQuoteInfo"
-				
-		}, new Object[]{
-				userId,
-				operateCode,
-				serialNumber,
-				currenTurn,
-				productQuoteInfo
-		});
+
+		ob.setPramas(new String[] { "userId", "operateCode", "serialNumber",
+				"currenTurn", "productQuoteInfo"
+
+		}, new Object[] { userId, operateCode, serialNumber, currenTurn,
+				productQuoteInfo });
 		ob.addAsynHcResponseListenrt(listener);
 		ob.getUrl(HttpAddress.PROJECT_COMPARISON_QUOTE);
 	}
-	
-	
+
 	/**
 	 * 项目询价操作
-	 * @param operateCode 操作码
-	 * @param serialNumber 项目编号
-	 * @param type 项目类型
-	 * @param productQuoteInfo 产品询价详情
+	 * 
+	 * @param operateCode
+	 *            操作码
+	 * @param serialNumber
+	 *            项目编号
+	 * @param type
+	 *            项目类型
+	 * @param productQuoteInfo
+	 *            产品询价详情
 	 */
-	private void projectComparisonOperate(int userId,int currenTurn,int operateCode,String serialNumber
-			,String productQuoteInfo,AsynHcResponseListener listener){
+	private void projectComparisonOperate(int userId, int currenTurn,
+			int operateCode, String serialNumber, String productQuoteInfo,
+			AsynHcResponseListener listener) {
 		HttpComparisonOprate ob = new HttpComparisonOprate();
-		ob.setPramas(new String[]{
-				"userId",
-				"operateCode",
-				"serialNumber",
-				"currenTurn",
-				"productQuoteInfo"
-				
-		}, new Object[]{
-				userId,
-				operateCode,
-				serialNumber,
-				currenTurn,
-				productQuoteInfo
-		});
-	
+		ob.setPramas(new String[] { "userId", "operateCode", "serialNumber",
+				"currenTurn", "productQuoteInfo"
+
+		}, new Object[] { userId, operateCode, serialNumber, currenTurn,
+				productQuoteInfo });
+
 		ob.addAsynHcResponseListenrt(listener);
 		ob.getUrl(HttpAddress.PROJECT_COMPARISON_OPERATE);
 	}
+
 	/**
 	 * 询价操作 同意或拒绝
-	 * @param serialNumber 项目编号
-	 * @param type 项目类型
-	 * @param listener 监听器
+	 * 
+	 * @param serialNumber
+	 *            项目编号
+	 * @param type
+	 *            项目类型
+	 * @param listener
+	 *            监听器
 	 */
-	public void projectComparisonOperate(int userId,int currenTurn,int operateCode,String serialNumber,AsynHcResponseListener listener){
-		projectComparisonOperate(userId,currenTurn,operateCode, serialNumber, "", listener);
+	public void projectComparisonOperate(int userId, int currenTurn,
+			int operateCode, String serialNumber,
+			AsynHcResponseListener listener) {
+		projectComparisonOperate(userId, currenTurn, operateCode, serialNumber,
+				"", listener);
 	}
+
 	/**
 	 * 询价操作 价格修改反向询价
-	 * @param serialNumber 项目编号
-	 * @param type 项目类型
-	 * @param list 产品询价详情
-	 * @param listener 监听器
+	 * 
+	 * @param serialNumber
+	 *            项目编号
+	 * @param type
+	 *            项目类型
+	 * @param list
+	 *            产品询价详情
+	 * @param listener
+	 *            监听器
 	 */
-	public void projectComparisonOperate(int userId,int currenTurn,String serialNumber,ArrayList<QuoteProduct> list,AsynHcResponseListener listener){
-		if(list==null||list.size()==0){
+	public void projectComparisonOperate(int userId, int currenTurn,
+			String serialNumber, ArrayList<QuoteProduct> list,
+			AsynHcResponseListener listener) {
+		if (list == null || list.size() == 0) {
 			return;
 		}
 		JSONArray ja = new JSONArray();
-		for(int i=0;i<list.size();i++){
+		for (int i = 0; i < list.size(); i++) {
 			QuoteProduct quoteProduct = list.get(i);
 			JSONObject jo = quoteProduct.page();
 			ja.put(jo);
-			
+
 		}
 		String productQuoteInfo = ja.toString();
-		projectComparisonOperate(userId,currenTurn,HttpConstants.CHANGE,serialNumber,productQuoteInfo,listener);
+		projectComparisonOperate(userId, currenTurn, HttpConstants.CHANGE,
+				serialNumber, productQuoteInfo, listener);
 	}
 
 }

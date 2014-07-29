@@ -21,6 +21,12 @@ public abstract class BaseAsynHttpClient {
 		this.isEmpty = isEmpty;
 	}
 
+	private boolean isFail = false;
+
+	public void setFail(boolean isFail) {
+		this.isFail = isFail;
+	}
+
 	protected abstract void parerAsynHcResponse(String content);// 数据解析
 
 	public interface AsynHcResponseListener {// 回调相应接口
@@ -77,7 +83,7 @@ public abstract class BaseAsynHttpClient {
 					public void onSuccess(String content) {
 						// TODO Auto-generated method stub
 						if (StringUtil.stringIsEmpty(content)) {// 数据为空
-							
+
 							reSponse(2);
 						} else {
 							parerAsynHcResponse(content);
@@ -104,11 +110,17 @@ public abstract class BaseAsynHttpClient {
 			switch (state) {
 
 			case 0:// 0成功
-				if (!isEmpty) {
-					listener.onSuccess(this);
-				} else {
+				if (isEmpty) {
 					listener.onEmpty();
+					return;
 				}
+				if (isFail) {
+					listener.onTimeout();
+					return;
+				}
+
+				listener.onSuccess(this);
+
 				break;
 
 			case 1:// 连接超时

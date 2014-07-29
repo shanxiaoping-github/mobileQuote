@@ -73,14 +73,14 @@ public class ProductAdapter extends BaseAdapter<Product> {
 		}
 
 		holder.productRate.setText("含税" + product.getRate() + "%");
-		holder.productName.setText(arg0 + "/" + dataSize() + " "
+		holder.productName.setText(arg0+1 + "/" + dataSize() + " "
 				+ product.getName());// 产品名称
 		holder.productUnit
 				.setText(MathUtil.getAmoutExpress(product.getNumber())
 						+ product.getUnit());// 产品单位
 		holder.productSerialNumber.setText("产品编号:" + product.getSerialNumber());// 产品编码
 
-		if (state == 1||project.getCurrentNumber()==1) {//如果是截止或第一次报价
+		if (state == 1||state==3||project.getCurrentNumber()==1) {//如果是截止或第一次报价
 
 			// holder.productCurrentTotal.setVisibility(View.GONE);
 			holder.productLastPrice.setVisibility(View.GONE);
