@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="5dip" >
+
+        <Button
+            android:id="@+id/seach_icon"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/blue_gray_select"
+            android:paddingBottom="9dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="9dp"
+            android:text="搜索"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/seach_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/seach_icon"
+            android:background="@drawable/box_backgroup"
+            android:hint="项目名称或编号"
+            android:paddingLeft="10dip"
+            android:singleLine="true"
+            android:textColor="@color/shallowGray"
+            android:textColorHint="@color/hintColor" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/seach_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/baseColor"
+        android:cacheColorHint="@color/emptyColor"
+        android:divider="@color/emptyColor"
+        android:listSelector="@color/emptyColor" />
+
+</LinearLayout>

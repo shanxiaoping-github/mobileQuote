@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.mobileproductquote.app"
+    package="cn.mobileproductquote1.app"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -26,27 +26,27 @@
         android:targetPackage="cn.mobileproductquote.app" />
 
     <application
-        android:name="cn.mobileproductquote.app.main.MyApplication"
+        android:name="cn.mobileproductquote1.app.main.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
-        android:label="@string/app_name"
+        android:label="@string/app_name1"
         android:theme="@style/AppBaseTheme" >
         <activity
-            android:name="cn.mobileproductquote.app.main.ApplicationActivity"
-            android:label="@string/app_name" >
+            android:name="cn.mobileproductquote1.app.main.ApplicationActivity"
+            android:label="@string/app_name1" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="cn.mobileproductquote.app.ui.login.LoginActivity" />
-        <activity android:name="cn.mobileproductquote.app.ui.home.MainActivity" />
-        <activity android:name="cn.mobileproductquote.app.ui.project.ProjectDeatailActivity" />
-        <activity android:name="cn.mobileproductquote.app.ui.project.ProductDeatailActivity" />
-        <activity android:name="cn.mobileproductquote.app.ui.project.EnquiryRecordActivity" />
+        <activity android:name="cn.mobileproductquote1.app.ui.login.LoginActivity" />
+        <activity android:name="cn.mobileproductquote1.app.ui.home.MainActivity" />
+        <activity android:name="cn.mobileproductquote1.app.ui.project.ProjectDeatailActivity" />
+        <activity android:name="cn.mobileproductquote1.app.ui.project.ProductDeatailActivity" />
+        <activity android:name="cn.mobileproductquote1.app.ui.project.EnquiryRecordActivity" />
         <activity
-            android:name="cn.mobileproductquote.app.ui.project.ProjectQuoteDeatailActiviy"
+            android:name="cn.mobileproductquote1.app.ui.project.ProjectQuoteDeatailActiviy"
             android:theme="@android:style/Theme.Translucent" />
 
         <uses-library android:name="android.test.runner" />

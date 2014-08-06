@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 绿色按钮样式 -->
+    <style name="blue_button_style" parent="@style/one_level_font">
+        <item name="android:padding">10dip</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dip</item>
+        <item name="android:background">@drawable/blue_gray_select</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- 标题栏样式 -->
+    <style name="title_style" parent="@style/big_level_font">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dip</item>
+        <item name="android:background">@color/titleColor</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+       
+    </style>
+</resources>
