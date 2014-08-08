@@ -1,8 +1,8 @@
 #服务器地址
 #serviceAddress=http://175.102.13.59:8080/
-#serviceAddress=http://ztb.shuhaitz.com/
+serviceAddress=http://ztb.shuhaitz.com/
 
-serviceAddress=http://vendor.syxhzcs.com/
+#serviceAddress=http://vendor.syxhzcs.com/
 
 
 
