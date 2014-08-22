@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 超大号字体 -->
+    <style name="super_big_level_font">
+        <item name="android:textSize">35sp</item>
+    </style>
+
+    <!-- 大号字体 -->
+    <style name="big_level_font">
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <!-- 一级字体 -->
+    <style name="one_level_font">
+        <item name="android:textSize">20sp</item>
+    </style>
+    <!-- 二级字体 -->
+    <style name="two_level_font">
+        <item name="android:textSize">17sp</item>
+    </style>
+    <!-- 三级字体 -->
+    <style name="three_level_font">
+        <item name="android:textSize">15sp</item>
+    </style>
+    <!-- 小号字体 -->
+    <style name="small_level_font">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+</resources>

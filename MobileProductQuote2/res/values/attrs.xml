@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="quotoEditorAttrs">
+        <attr name="describe" format="string" />
+        <attr name="fontsize" format="integer" />
+        <attr name="fontcolor" format="reference|color" />
+    </declare-styleable>
+
+</resources>

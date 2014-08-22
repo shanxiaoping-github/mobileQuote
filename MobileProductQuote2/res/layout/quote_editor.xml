@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/quote_editor_describe"
+        style="@style/small_level_font"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="税率"
+        android:textColor="@color/red" />
+
+    <EditText
+        android:id="@+id/quote_editor_price"
+        style="@style/small_level_font"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="3dip"
+        android:background="@color/emptyColor"
+        android:phoneNumber="true"
+        android:textColor="@color/shallowGray"
+        android:textColorHint="@color/hintColor" />
+
+    <ImageButton
+        android:id="@+id/quote_editor_sure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dip"
+        android:background="@color/emptyColor"
+        android:src="@drawable/yes" />
+
+    <ImageButton
+        android:id="@+id/quote_editor_cancle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dip"
+        android:background="@color/emptyColor"
+        android:src="@drawable/no" />
+
+</LinearLayout>

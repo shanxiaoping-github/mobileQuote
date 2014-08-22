@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/press_background"
+    android:orientation="vertical"
+
+    android:descendantFocusability="blocksDescendants"
+    android:clickable="true"
+     >
+
+    <TextView
+        android:id="@+id/project_item_name"
+        style="@style/two_level_font"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/hintColor"
+        android:paddingBottom="15dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="15dip"
+        android:text="房屋采购"
+        android:textColor="@color/shallowGray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_marginTop="10dip"
+            android:id="@+id/project_item_end_time"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="截止时间:2014-05-15"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:layout_marginTop="10dip"
+            android:id="@+id/project_item_serialNumber"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="项目编号:123456"
+            android:textColor="@color/shallowGray" />
+
+        <TextView
+            android:layout_marginBottom="10dip"
+            android:layout_marginTop="10dip"
+            android:id="@+id/project_item_moneytype"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="币种：人民币"
+            android:textColor="@color/shallowGray" />
+    </LinearLayout>
+
+</LinearLayout>

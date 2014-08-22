@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/titleColor"
+    android:paddingBottom="10dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:paddingTop="10dip" >
+
+    <ImageView
+        android:id="@+id/user_item_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/user_small_icon" />
+
+    <TextView
+        android:id="@+id/user_item_name"
+        style="@style/one_level_font"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dip"
+        android:layout_toRightOf="@id/user_item_icon"
+        android:gravity="center"
+        android:text="好惜时"
+        android:textColor="@color/white" />
+
+    <TextView
+        style="@style/two_level_font"
+        android:paddingLeft="6dip"
+        android:paddingRight="6dip"
+        android:paddingTop="3dip"
+        android:paddingBottom="3dip"
+        android:id="@+id/user_item_out_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/blue_gray_select"
+        android:gravity="center"
+        android:text="退出"
+        android:textColor="@color/orange" />
+
+</RelativeLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dip"
+    android:background="@drawable/press_background"
+     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/change_product_item_name"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="产品名称:螺丝 "
+            android:textColor="@color/shallowGray" />
+
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/change_product_item_number"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100斤"
+            android:textColor="@color/shallowGray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/change_product_item_current_total"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前小计:100 "
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/change_product_item_current_price"
+            style="@style/three_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(100元/斤) "
+            android:textColor="@color/lightGray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/change_product_item_last_total"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上轮小计:100"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/change_product_item_last_price"
+            style="@style/three_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(100元/斤) "
+            android:textColor="@color/lightGray" />
+    </LinearLayout>
+
+</LinearLayout>

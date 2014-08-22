@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/end_project_cp"
+            style="@style/two_level_font"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/hintColor"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:text="询比价项目"
+            android:textColor="@color/shallowGray" />
+
+        <Button
+            android:id="@+id/end_project_bi"
+            style="@style/two_level_font"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/hintColor"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:text="招投标项目"
+            android:textColor="@color/shallowGray" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/shallowGray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/end_project_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/baseColor"
+            android:cacheColorHint="@color/emptyColor"
+            android:divider="@color/emptyColor"
+            android:listSelector="@color/emptyColor" >
+        </ListView>
+
+        <TextView
+            android:text="暂无项目"
+            android:id="@+id/end_project_empty"
+            style="@style/big_level_font"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textColor="@color/shallowGray"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/end_project_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:src="@drawable/error"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ListView
+        android:id="@+id/ing_project_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/baseColor"
+        android:cacheColorHint="@color/emptyColor"
+        android:divider="@color/emptyColor"
+        android:listSelector="@color/emptyColor" >
+    </ListView>
+
+    <TextView
+        android:text="暂无项目"
+        android:id="@+id/ing_project_empty"
+        style="@style/big_level_font"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/shallowGray"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ing_project_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:src="@drawable/error"
+        android:visibility="gone"/>
+
+</RelativeLayout>

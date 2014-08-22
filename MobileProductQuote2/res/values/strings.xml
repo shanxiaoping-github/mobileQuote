@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">良品铺子电子采购平台移动端</string>
+    
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    
+    
+    <string name="loading_prompt0">努力加载中...</string>
+    <string name="loading_prompt1">加载超时</string>
+     <string name="loading_prompt2">操作中...</string>
+     
+     
+     
+
+</resources>

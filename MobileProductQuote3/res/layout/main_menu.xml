@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/noSlectColor"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/user_item" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/white" />
+
+    <Button
+        android:id="@+id/main_menu_ing_tender_project"
+        style="@style/two_level_font"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/noSlectColor"
+        android:gravity="center_vertical"
+        android:padding="10dip"
+        android:text="进行的招投标项目"
+        android:textColor="@color/shallowGray" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/white" />
+
+    <Button
+        android:id="@+id/main_menu_ing_enquiry_project"
+        style="@style/two_level_font"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/noSlectColor"
+        android:gravity="center_vertical"
+        android:padding="10dip"
+        android:text="进行的询价项目"
+        android:textColor="@color/shallowGray" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/white" />
+
+    <Button
+        android:visibility="visible"
+        android:id="@+id/main_menu_end_project"
+        style="@style/two_level_font"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/noSlectColor"
+        android:gravity="center_vertical"
+        android:padding="10dip"
+        android:text="结束的项目"
+        android:textColor="@color/shallowGray" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="@color/emptyColor" />
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/seacher" />
+
+</LinearLayout>
