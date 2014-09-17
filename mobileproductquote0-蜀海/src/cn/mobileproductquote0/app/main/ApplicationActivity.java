@@ -14,7 +14,7 @@ public class ApplicationActivity extends BaseActivity {
 	protected void layout() {
 		// TODO Auto-generated method stub
 		openActivity(LoginActivity.class);
-		finishBase();
+		//finishBase();
 
 	}
 	

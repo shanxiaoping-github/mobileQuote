@@ -40,13 +40,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:namecn.mobileproductquote0.app.ui.login.LoginActivityty" />
-        <activity android:namecn.mobileproductquote0.app.ui.home.MainActivityty" />
-        <activity android:nacn.mobileproductquote0.app.ui.project.ProjectDeatailActivityvity" />
-        <activity android:nacn.mobileproductquote0.app.ui.project.ProductDeatailActivityvity" />
-        <activity android:nacn.mobileproductquote0.app.ui.project.EnquiryRecordActivityvity" />
+        <activity android:name="cn.mobileproductquote0.app.ui.login.LoginActivity" />
+        <activity android:name="cn.mobileproductquote0.app.ui.home.MainActivity" />
+        <activity android:name="cn.mobileproductquote0.app.ui.project.ProjectDeatailActivity" />
+        <activity android:name="cn.mobileproductquote0.app.ui.project.ProductDeatailActivity" />
+        <activity android:name="cn.mobileproductquote0.app.ui.project.EnquiryRecordActivity" />
         <activity
-            android:nacn.mobileproductquote0.app.ui.project.ProjectQuoteDeatailActiviyiviy"
+            android:name="cn.mobileproductquote0.app.ui.project.ProjectQuoteDeatailActiviy"
             android:theme="@android:style/Theme.Translucent" />
 
         <uses-library android:name="android.test.runner" />

@@ -1,4 +1,4 @@
-package cn.mobileproductquote0.app.data;
+package cn.mobileproductquote1.app.data;
 
 import java.util.ArrayList;
 
@@ -20,6 +20,8 @@ public class Project implements BaseData {
 	private String name = "";// 项目名称
 	private String endTime = "";// 截止时间
 	private String moneyType = "";// 币种
+	
+	  
 
 	public String getMoneyType() {
 		return moneyType;
@@ -87,6 +89,9 @@ public class Project implements BaseData {
 		this.type = type;
 	}
 
+	
+
+	
 	@Override
 	public void parser(JSONObject jo) {
 		// TODO Auto-generated method stub
@@ -99,6 +104,9 @@ public class Project implements BaseData {
 			endTime = jo.getString("endTime");
 			moneyType = jo.getString("moneyType");
 			rate = jo.getInt("rate");
+		
+			
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
