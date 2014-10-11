@@ -1,5 +1,6 @@
 package cn.mobileproductquote0.app.adapter;
 
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;

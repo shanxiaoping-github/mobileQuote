@@ -22,6 +22,33 @@ public class Product implements BaseData {
 	private double currentPrice = 0;// 当前价格
 	private double rate = 0;// 税率
 	private String describe = "无";
+	private String specifications = "";// 产品送货规格
+	private String lastRank = ""; // 上轮报价排名
+	private String currentRank = ""; // 当前报价排名
+
+	public String getSpecifications() {
+		return specifications;
+	}
+
+	public void setSpecifications(String specifications) {
+		this.specifications = specifications;
+	}
+
+	public String getLastRank() {
+		return lastRank;
+	}
+
+	public void setLastRank(String lastRank) {
+		this.lastRank = lastRank;
+	}
+
+	public String getCurrentRank() {
+		return currentRank;
+	}
+
+	public void setCurrentRank(String currentRank) {
+		this.currentRank = currentRank;
+	}
 
 	public String getDescribe() {
 		return describe;
@@ -102,6 +129,11 @@ public class Product implements BaseData {
 			rate = jo.getDouble("rate");
 
 			describe = jo.getString("describe");
+
+			specifications = jo.getString("specifications");// 产品送货规格
+			lastRank = jo.getString("lastRank"); // 上轮报价排名
+			currentRank = jo.getString("currentRank"); // 当前报价排名
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

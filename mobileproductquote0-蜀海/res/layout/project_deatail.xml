@@ -10,6 +10,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
+            
             android:id="@+id/project_deatail_title"
             style="@style/title_style"
             android:text="工程采购" />
@@ -20,14 +21,7 @@
             android:layout_height="wrap_content"
             layout="@layout/back_item" />
 
-        <ImageView
-            android:id="@+id/project_deatail_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/back"
-            android:background="@color/emptyColor"
-            android:gravity="center" />
+        
 
         <ImageButton
             android:id="@+id/project_deatail_more"

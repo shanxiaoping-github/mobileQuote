@@ -11,7 +11,7 @@
         android:layout_height="100dip"
         android:layout_gravity="center_horizontal"
         
-        android:src="@drawable/login_icon0" />
+        android:src="@drawable/login_icon" />
 
     <TextView
         style="@style/big_level_font"

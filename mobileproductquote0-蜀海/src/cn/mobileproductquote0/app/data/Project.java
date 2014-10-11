@@ -20,9 +20,9 @@ public class Project implements BaseData {
 	private String name = "";// 项目名称
 	private String endTime = "";// 截止时间
 	private String moneyType = "";// 币种
-	private String specifications="";//    产品送货规格
-    private String lastRank="";           //上轮报价排名
-    private String currentRank="";    //当前报价排名
+//	private String specifications="";//    产品送货规格
+//    private String lastRank="";           //上轮报价排名
+//    private String currentRank="";    //当前报价排名
 
 	public String getMoneyType() {
 		return moneyType;
@@ -92,29 +92,29 @@ public class Project implements BaseData {
 
 	
 	
-	public String getSpecifications() {
-		return specifications;
-	}
-
-	public void setSpecifications(String specifications) {
-		this.specifications = specifications;
-	}
-
-	public String getLastRank() {
-		return lastRank;
-	}
-
-	public void setLastRank(String lastRank) {
-		this.lastRank = lastRank;
-	}
-
-	public String getCurrentRank() {
-		return currentRank;
-	}
-
-	public void setCurrentRank(String currentRank) {
-		this.currentRank = currentRank;
-	}
+//	public String getSpecifications() {
+//		return specifications;
+//	}
+//
+//	public void setSpecifications(String specifications) {
+//		this.specifications = specifications;
+//	}
+//
+//	public String getLastRank() {
+//		return lastRank;
+//	}
+//
+//	public void setLastRank(String lastRank) {
+//		this.lastRank = lastRank;
+//	}
+//
+//	public String getCurrentRank() {
+//		return currentRank;
+//	}
+//
+//	public void setCurrentRank(String currentRank) {
+//		this.currentRank = currentRank;
+//	}
 
 	@Override
 	public void parser(JSONObject jo) {
@@ -128,10 +128,10 @@ public class Project implements BaseData {
 			endTime = jo.getString("endTime");
 			moneyType = jo.getString("moneyType");
 			rate = jo.getInt("rate");
-			specifications=jo.getString("specifications");//产品送货规格
-			lastRank=jo.getString("lastRank"); //上轮报价排名
-			currentRank=jo.getString("currentRank"); //当前报价排名
-			
+//			specifications=jo.getString("specifications");//产品送货规格
+//			lastRank=jo.getString("lastRank"); //上轮报价排名
+//			currentRank=jo.getString("currentRank"); //当前报价排名
+//			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

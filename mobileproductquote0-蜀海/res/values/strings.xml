@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name0">蜀海电子采购平台移动端</string>
-    <string name="app_name1">新合作电子采购平台移动端</string>
+    <string name="app_name">蜀海电子采购平台移动端</string>
+    
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     

@@ -67,6 +67,9 @@ public class ProductAdapter extends BaseAdapter<Product> {
 					.findViewById(R.id.product_item_product_total);
 			holder.productLastTotal = (TextView) arg1
 					.findViewById(R.id.product_item_last_total);
+			holder.specifications=(TextView)arg1.findViewById(R.id.product_item_specifications);
+			holder.currentRank = (TextView)arg1.findViewById(R.id.product_item_current_ranking);
+			holder.lastRank = (TextView)arg1.findViewById(R.id.product_item_last_ranking);
 			arg1.setTag(holder);
 		} else {
 			holder = (Holder) arg1.getTag();
@@ -80,6 +83,17 @@ public class ProductAdapter extends BaseAdapter<Product> {
 						+ product.getUnit());// 产品单位
 		holder.productSerialNumber.setText("产品编号:" + product.getSerialNumber());// 产品编码
 
+		holder.specifications.setText("产品规格:"+product.getSpecifications());
+		if(state!=0){
+			holder.currentRank.setVisibility(View.GONE);
+			holder.lastRank.setVisibility(View.GONE);
+		}else{
+			holder.currentRank.setVisibility(View.VISIBLE);
+			holder.lastRank.setVisibility(View.VISIBLE);
+			holder.currentRank.setText("当前排名:"+product.getCurrentRank());
+			holder.lastRank.setText("上次排名:"+product.getLastRank());
+		}
+		
 		if (state == 1||state==3||project.getCurrentNumber()==1) {//如果是截止或第一次报价
 
 			// holder.productCurrentTotal.setVisibility(View.GONE);
@@ -138,6 +152,10 @@ public class ProductAdapter extends BaseAdapter<Product> {
 
 		TextView productLastPrice;// 上轮报价
 		TextView productCurrentPrice;// 当前报价
+		
+		TextView specifications;//规格
+		TextView currentRank;//当前排名
+		TextView lastRank;//上次排名
 	}
 
 }

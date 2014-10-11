@@ -6,28 +6,26 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import cn.mobileproductquote0.app.R;
 import cn.mobileproductquote0.app.adapter.ProductAdapter;
 import cn.mobileproductquote0.app.data.Product;
-import cn.mobileproductquote0.app.data.Project;
 import cn.mobileproductquote0.app.data.Product.QuoteProduct;
+import cn.mobileproductquote0.app.data.Project;
 import cn.mobileproductquote0.app.http.BaseAsynHttpClient;
+import cn.mobileproductquote0.app.http.BaseAsynHttpClient.AsynHcResponseListener;
 import cn.mobileproductquote0.app.http.HttpComparisonOprate;
 import cn.mobileproductquote0.app.http.HttpComparisonQuote;
 import cn.mobileproductquote0.app.http.HttpMethod;
 import cn.mobileproductquote0.app.http.HttpProducts;
 import cn.mobileproductquote0.app.http.HttpProjectQuote;
-import cn.mobileproductquote0.app.http.BaseAsynHttpClient.AsynHcResponseListener;
 import cn.mobileproductquote0.app.intrface.AdapterItemListener;
 import cn.mobileproductquote0.app.intrface.BaseListener;
 import cn.mobileproductquote0.app.main.MyApplication;
@@ -58,7 +56,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 	private TextView projectRate;// 项目税率
 	private TextView projectRemainQuoteNumber;// 项目剩余报价轮次
 	private LinearLayout bottomGroup;// 底部容器
-	private ImageView type;
+
 	private ImageButton more;
 	private ImageButton error;// 错误
 	private TextView empty;// 空
@@ -69,7 +67,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 		setContentView(R.layout.project_deatail);
 		state = getIntent().getExtras().getInt("state");
 		project = (Project) getIntent().getExtras().getSerializable("project");
-		type = (ImageView) findViewById(R.id.project_deatail_type);
+		
 		more = (ImageButton) findViewById(R.id.project_deatail_more);
 		more.setOnClickListener(this);
 		error = (ImageButton) findViewById(R.id.project_deatail_error);
@@ -77,7 +75,7 @@ public class ProjectDeatailActivity extends BaseActivity implements
 		empty = (TextView) findViewById(R.id.project_deatail_empty);
 		switch (state) {
 		case 0:
-			type.setImageResource(R.drawable.tou);
+			
 			if (project.getCurrentNumber() > 1) {
 				more.setVisibility(View.VISIBLE);
 			} else {
@@ -87,11 +85,11 @@ public class ProjectDeatailActivity extends BaseActivity implements
 
 		case 1:
 		case 3:
-			type.setImageResource(R.drawable.jie);
+			
 			more.setVisibility(View.GONE);
 			break;
 		case 2:
-			type.setImageResource(R.drawable.xun);
+		
 			if (project.getCurrentNumber() > 1) {
 				more.setVisibility(View.VISIBLE);
 			} else {

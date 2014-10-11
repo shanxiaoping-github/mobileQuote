@@ -12,7 +12,7 @@
     </style>
 
     <!-- 标题栏样式 -->
-    <style name="title_style" parent="@style/big_level_font">
+    <style name="title_style" parent="@style/two_level_font">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dip</item>
         <item name="android:background">@color/titleColor</item>

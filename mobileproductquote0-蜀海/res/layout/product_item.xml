@@ -60,6 +60,41 @@
             android:textColor="@color/shallowGray" />
 
         <TextView
+            android:id="@+id/product_item_specifications"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="规格:123456"
+            android:textColor="@color/shallowGray" />
+
+        <TextView
+            android:id="@+id/product_item_current_ranking"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="当前排名:1"
+            android:textColor="@color/shallowGray"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/product_item_last_ranking"
+            style="@style/two_level_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="上次排名:5"
+            android:textColor="@color/shallowGray"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/product_item_current_price"
             style="@style/two_level_font"
             android:layout_width="match_parent"
@@ -87,7 +122,6 @@
             style="@style/two_level_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-          
             android:layout_marginTop="5dip"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
