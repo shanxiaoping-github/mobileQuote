@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/emptyColor"
+    android:padding="25dip" >
+
+    <LinearLayout
+        android:paddingLeft="2dip"
+        android:paddingRight="2dip"
+        android:paddingTop="3dip"
+        android:paddingBottom="2dip"
+       
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/box_backgroup"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/project_quote_deatail_title"
+            style="@style/one_level_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/shallowGray"
+            android:gravity="center"
+            android:padding="8dip"
+            android:text="你正在提交第3轮报价"
+            android:textColor="@color/white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" >
+
+            <TextView
+                android:background="@color/hintColor"
+                android:id="@+id/project_quote_deatail_describe"
+                style="@style/two_level_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:padding="5dip"
+                android:text="本采购项目共包含10个采购产品，本轮你调整了5个产品的报价,调整产品如下:"
+                android:textColor="@color/shallowGray" />
+
+            <View
+                android:id="@+id/project_quote_deatail_top_diver"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:layout_below="@id/project_quote_deatail_describe"
+                android:background="@color/diverGray" />
+
+            <LinearLayout
+                android:id="@+id/project_quote_deatail_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:paddingBottom="15dip"
+                android:paddingTop="15dip" >
+
+                <View
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/project_quote_deatail_back"
+                    style="@style/two_level_font"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_gray_select"
+                    android:paddingBottom="10dip"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:paddingTop="10dip"
+                    android:text="返回"
+                    android:textColor="@color/white" />
+
+                <View
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/project_quote_deatail_sure"
+                    style="@style/two_level_font"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_gray_select"
+                    android:paddingBottom="10dip"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:paddingTop="10dip"
+                    android:text="报价"
+                    android:textColor="@color/white" />
+
+                <View
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/project_quote_deatail_bottom_diver"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:layout_above="@id/project_quote_deatail_bottom"
+                android:background="@color/diverGray" />
+
+            <ListView
+                android:id="@+id/project_quote_deatail_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/project_quote_deatail_bottom_diver"
+                android:layout_below="@id/project_quote_deatail_top_diver"
+                android:cacheColorHint="@color/emptyColor"
+                android:divider="@color/diverGray"
+                android:dividerHeight="1dip"
+                android:listSelector="@color/emptyColor" >
+            </ListView>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <ImageButton
+        android:id="@+id/back_item_back"
+        android:layout_width="wrap_content"
+        android:layout_height="50dip"
+        android:background="@drawable/back_item"
+        android:paddingBottom="10dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="20dip"
+        android:paddingTop="10dip"
+        android:src="@drawable/back"/>
+
+</RelativeLayout>

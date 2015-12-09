@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#ffffffff</color>
+    <color name="background">#ffffffff</color>
+    <color name="hintColor">#c9c9c9</color>
+    <color name="emptyColor">#00000000</color>
+    <color name="shallowGray">#4c4948</color>
+    <color name="menutitleColor">#303d4d</color>
+    <color name="menubackgroundColor">#b0303d4d</color>
+    <color name="selectYesColor">#9fe313</color>
+    <color name="selectNoColor">#a3f174</color>
+    <color name="blue">#0c98fc</color>
+    <color name="red">#ffff0000</color>
+    <color name="gloden">#ffffcc00</color>
+    <color name="black">#ff000000</color>
+    <color name="gray">#4c4948</color>
+    <color name="green">#ff00ff00</color>
+    <color name="baseColor">#eeeeee</color>
+    <color name="diverGray">#5fc9c9c9</color>
+    <color name="lightGray">#c9c9c9</color>
+    <color name="titleColor">#4c4948</color>
+    <color name="noSlectColor">#8FD6D2</color>
+    <color name="slectColor">#2B7B77</color>
+    <color name="orange">#ff7200</color>
+   
+
+</resources>
