@@ -78,7 +78,7 @@ public abstract class BaseAsynHttpClient {
 			client.setTimeout(getOutime());
 		}
 		String url = HttpAddress.getUrl(path);
-		client.get(url, requestParams,
+		client.post(url, requestParams,
 				new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String content) {

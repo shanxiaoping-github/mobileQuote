@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">喜力(中国)电子采购平台移动端</string>
+    <string name="app_name">正邦电子采购平台移动端</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="loading_prompt0">努力加载中...</string>
