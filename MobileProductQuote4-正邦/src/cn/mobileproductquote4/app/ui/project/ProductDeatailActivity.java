@@ -35,6 +35,7 @@ public class ProductDeatailActivity extends BaseActivity implements
 
 	private TextView currenTotal;
 	private TextView lastTotal;
+	private TextView faileView;
 	private static BaseListener listener = null;
 	private static Product product = null;
 	private static boolean modify = true;
@@ -74,12 +75,14 @@ public class ProductDeatailActivity extends BaseActivity implements
 
 		number = (TextView) findViewById(R.id.product_deatail_number);
 		describe = (TextView) findViewById(R.id.product_deatail_describe);
+		faileView = (TextView)findViewById(R.id.product_deatail_faile);
 		View prompt = findViewById(R.id.product_deatail_prompt);
 		if (!modify) {
 			prompt.setVisibility(View.GONE);
 		}
 
 		if (product != null) {
+			faileView.setVisibility(View.GONE);
 			title.setText(product.getName());
 			currenTotal.setText("当前小计:"
 					+ MathUtil.getAmoutExpress(product.getCurrentPrice()
@@ -97,6 +100,10 @@ public class ProductDeatailActivity extends BaseActivity implements
 
 			number.setText("数量:" + product.getNumber());
 			describe.setText(product.getDescribe());
+		}else{
+			title.setText("未知");
+			faileView.setVisibility(View.VISIBLE);
+			
 		}
 
 	}
@@ -144,7 +151,7 @@ public class ProductDeatailActivity extends BaseActivity implements
 							ProductDeatailActivity.this.rate.setText("税率:"
 									+ product.getRate() + "%");
 							if (listener != null) {
-								listener.onListener(null);
+								listener.onListener();
 								listener = null;
 							}
 						}

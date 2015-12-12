@@ -20,130 +20,148 @@
             layout="@layout/back_item" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="10dip"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/product_deatail_current_total"
+                    style="@style/big_level_font"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当前小计:100元"
+                    android:textColor="@color/blue" />
+
+                <TextView
+                    android:id="@+id/product_deatail_current_price"
+                    style="@style/two_level_font"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(100元/斤)"
+                    android:textColor="@color/shallowGray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/product_deatail_last_total"
+                    style="@style/two_level_font"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上轮小计:100元"
+                    android:textColor="@color/shallowGray" />
+
+                <TextView
+                    android:id="@+id/product_deatail_last_price"
+                    style="@style/three_level_font"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(100元/斤)"
+                    android:textColor="@color/shallowGray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/product_deatail_rate_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/press_background"
+                android:clickable="true"
+                android:descendantFocusability="blocksDescendants"
+                android:orientation="horizontal"
+                android:paddingBottom="3dip"
+                android:paddingTop="3dip" >
+
+                <TextView
+                    android:id="@+id/product_deatail_rate"
+                    style="@style/two_level_font"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="税率:17%"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:id="@+id/product_deatail_prompt"
+                    style="@style/two_level_font"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:text="点击可修改"
+                    android:textColor="@color/lightGray" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/product_deatail_serialnumber"
+                style="@style/two_level_font"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="2dip"
+                android:text="产品编号:123456"
+                android:textColor="@color/shallowGray" />
+
+            <TextView
+                android:id="@+id/product_deatail_number"
+                style="@style/two_level_font"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="2dip"
+                android:text="数量:100"
+                android:textColor="@color/shallowGray" />
+
+            <TextView
+                style="@style/two_level_font"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="2dip"
+                android:text="产品描述："
+                android:textColor="@color/shallowGray" />
+
+            <TextView
+                android:id="@+id/product_deatail_describe"
+                style="@style/three_level_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="2dip"
+                android:text="我希望钢筋的质量非常好，耐用，结实，我们是搞工程的，关系到人命,如果你不能达到我们的要求，就请不要打扰"
+                android:textColor="@color/shallowGray" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/product_deatail_current_total"
-            style="@style/big_level_font"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="当前小计:100元"
-            android:textColor="@color/blue" />
-
-        <TextView
-            android:id="@+id/product_deatail_current_price"
-            style="@style/two_level_font"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="(100元/斤)"
-            android:textColor="@color/shallowGray" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/product_deatail_last_total"
-            style="@style/two_level_font"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="上轮小计:100元"
-            android:textColor="@color/shallowGray" />
-
-        <TextView
-            android:id="@+id/product_deatail_last_price"
-            style="@style/three_level_font"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="(100元/斤)"
-            android:textColor="@color/shallowGray" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:paddingBottom="3dip"
-        android:paddingTop="3dip"
-        android:id="@+id/product_deatail_rate_root"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="10dip"
-        android:background="@drawable/press_background"
-        android:clickable="true"
-        android:descendantFocusability="blocksDescendants"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/product_deatail_rate"
-            style="@style/two_level_font"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="税率:17%"
-            android:textColor="@color/red" />
-
-        <TextView
-            android:id="@+id/product_deatail_prompt"
-            style="@style/two_level_font"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:text="点击可修改"
-            android:textColor="@color/lightGray" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/product_deatail_serialnumber"
-        style="@style/two_level_font"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="2dip"
-        android:text="产品编号:123456"
-        android:textColor="@color/shallowGray" />
-
-  
-
-    <TextView
-        android:id="@+id/product_deatail_number"
-        style="@style/two_level_font"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="2dip"
-        android:text="数量:100"
-        android:textColor="@color/shallowGray" />
-
-    <TextView
-        android:layout_marginTop="2dip"
-        style="@style/two_level_font"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:text="产品描述："
-        android:textColor="@color/shallowGray" />
-
-    <TextView
-        android:id="@+id/product_deatail_describe"
-        style="@style/three_level_font"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="2dip"
-        android:text="我希望钢筋的质量非常好，耐用，结实，我们是搞工程的，关系到人命,如果你不能达到我们的要求，就请不要打扰"
-        android:textColor="@color/shallowGray" />
+            android:id="@+id/product_deatail_faile"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:text="获取详情失败"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
 </LinearLayout>
